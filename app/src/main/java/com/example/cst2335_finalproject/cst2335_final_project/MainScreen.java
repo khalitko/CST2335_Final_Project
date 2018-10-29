@@ -1,7 +1,9 @@
 package com.example.cst2335_finalproject.cst2335_final_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainScreen extends Activity {
 
@@ -10,4 +12,21 @@ public class MainScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
     }
+
+    public void foodButton(View view) {
+        startActivity(new Intent(this, FoodActivity.class));
+    }
+
+    public void newsButton(View view) {
+        startActivity(new Intent(this, NewsActivity.class));
+    }
+
+    public void movieButton(View view) {
+        startActivity(new Intent(this, MovieActivity.class));
+    }
+
+    public void busButton(View view) {
+        startActivity(new Intent(this, BusActivity.class));
+    }
+
 }
