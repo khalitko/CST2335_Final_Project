@@ -18,7 +18,8 @@ public class MainScreen extends Activity {
     }
 
     public void newsButton(View view) {
-        startActivity(new Intent(this, NewsActivity.class));
+        Intent intent = new Intent(MainScreen.this, NewsActivity.class);
+        startActivity(intent);
     }
 
     public void movieButton(View view) {

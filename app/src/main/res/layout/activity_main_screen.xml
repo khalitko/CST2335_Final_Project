@@ -28,6 +28,7 @@
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
         android:contentDescription="@string/Main_NewsButton"
+        android:onClick="newsButton"
         android:src="@drawable/newspaper"
         android:text="@string/Main_NewsButton" />
 
