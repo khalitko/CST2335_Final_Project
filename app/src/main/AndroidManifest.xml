@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewsActivity" />
-        <activity android:name=".NewsContentRow"></activity>
+        <activity android:name=".NewsContentRow" />
+        <activity android:name=".NewsTitleRow"></activity>
     </application>
 
 </manifest>

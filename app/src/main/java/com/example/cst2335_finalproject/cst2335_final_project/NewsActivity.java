@@ -30,10 +30,10 @@ public class NewsActivity extends Activity {
     protected static final String ACTIVITY_NAME = "NewsActivity";
     private ExpandableListView listView;
     private TextView article_title;
-    public ArrayList<String> newsTitles;
-    public ArrayList<String> newsContent;
+    public ArrayList<String> newsTitles, newsUrl, newsDescription;
     private ProgressBar progressBar;
     private NewsAdapter newsAdapter;
+
 
 
     @Override
@@ -48,19 +48,20 @@ public class NewsActivity extends Activity {
 
 
         newsTitles = new ArrayList<>();
-        newsContent = new ArrayList<>();
+        newsUrl = new ArrayList<>();
+        newsDescription = new ArrayList<>();
 
-        newsAdapter = new NewsAdapter(this,newsTitles,newsContent);
 
         NewsQuery query = new NewsQuery();
         query.execute();
 
-
+        newsAdapter = new NewsAdapter(this,newsTitles,newsUrl,newsDescription);
     }
 
     private class NewsQuery extends AsyncTask<String, Integer, String>{
 
         public String doInBackground(String ...args){
+            String name = new String();
             try {
                 URL url = new URL("https://www.cbc.ca/cmlink/rss-world");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -74,7 +75,7 @@ public class NewsActivity extends Activity {
                 while (xpp.getEventType() != XmlPullParser.END_DOCUMENT){
                     switch (xpp.getEventType()){
                         case XmlPullParser.START_TAG:
-                            String name = xpp.getName();
+                            name = xpp.getName();
                             if (name.equals("title")){
                                 //does the same as next line
 //                                if (xpp.next() == XmlPullParser.TEXT){
@@ -82,11 +83,17 @@ public class NewsActivity extends Activity {
 //                                }
                                 newsTitles.add(xpp.nextText());
                             } else if (name.equals("link")){
-                                newsContent.add(xpp.nextText());
+                                newsUrl.add(xpp.nextText());
+                            } else if (name.equals("description")){
+                                newsDescription.add(xpp.getAttributeValue(null,"title"));
                             }
                             Log.i("read XML tag", name);
                             break;
                         case XmlPullParser.TEXT:
+                            System.out.println(name);
+                            if (name.equals("description")){
+                                System.out.println("Made it!!!");
+                            }
                             break;
                     }
                     xpp.next();
@@ -106,89 +113,29 @@ public class NewsActivity extends Activity {
             progressBar.setVisibility(View.INVISIBLE);
 
             listView = findViewById(R.id.newsList);
+
+            for (int i = 0; i < 2; i++){
+                newsTitles.remove(0);
+                //newsDescription.remove(0);
+                newsUrl.remove(0);
+            }
+            System.out.println(newsDescription.get(0));
+            newsAdapter.notifyDataSetChanged();
             listView.setAdapter(newsAdapter);
 
+            listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                int previousGroup = -1;
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (groupPosition != previousGroup){
+                        listView.collapseGroup(previousGroup);
+                    }
+                    previousGroup = groupPosition;
+                }
+            });
+
         }
     }
 
-    private class NewsAdapter extends BaseExpandableListAdapter {
 
-        private final Activity context;
-        private final ArrayList<String> titleArray;
-        private final ArrayList<String> contentArray;
-
-        public NewsAdapter(Activity context, ArrayList<String> titleArray, ArrayList<String> contentArray){
-
-            this.context = context;
-            this.titleArray = titleArray;
-            this.contentArray = contentArray;
-
-        }
-
-        @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
-            LayoutInflater inflaterChild = context.getLayoutInflater();
-            View rowViewContent = inflaterChild.inflate(R.layout.news_content_row, null, true);
-
-            TextView article_content = (TextView) rowViewContent.findViewById(R.id.article_content);
-
-            article_content.setText(contentArray.get(groupPosition));
-            article_content.setPadding(50,0,0,0);
-
-            return rowViewContent;
-        }
-
-        @Override
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return false;
-        }
-
-        @Override
-        public int getGroupCount() {
-            return titleArray.size();
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            return contentArray.get(groupPosition);
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        @Override
-        public Object getGroup(int groupPosition) {
-            return titleArray.get(groupPosition);
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            //Return 1 to look at the 1-1 position of the child array
-            return 1;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowViewTitle = inflater.inflate(R.layout.news_title_row, null, true);
-
-            TextView article_title = (TextView) rowViewTitle.findViewById(R.id.article_title);
-
-            article_title.setText(titleArray.get(groupPosition));
-            article_title.setTextColor(Color.BLACK);
-            return rowViewTitle;
-        }
-    }
 }
