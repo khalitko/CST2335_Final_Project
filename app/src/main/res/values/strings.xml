@@ -6,4 +6,6 @@
     <string name="Main_BusButton">OC Transpo App</string>
 
     <string name="news_reader">News Reader</string>
+    <string name="saved_articles">Saved Articles</string>
+    <string name="news_articles">News Articles</string>
 </resources>

@@ -38,8 +38,11 @@ public class NewsAdapter extends BaseExpandableListAdapter {
         article_url.setPadding(0,50,0,0);
         article_url.setTextColor(Color.WHITE);
 
-        article_description.setText(descriptionArray.get(groupPosition));
-        article_description.setPadding(0,0,0,0);
+//        if (groupPosition != 0){
+//            article_description.setText(descriptionArray.get(groupPosition-1));
+//            article_description.setPadding(0,0,0,0);
+//        }
+
 
 
 
@@ -97,6 +100,7 @@ public class NewsAdapter extends BaseExpandableListAdapter {
         article_title.setText(titleArray.get(groupPosition));
         article_title.setTextColor(Color.RED);
         article_title.setTextSize(20);
+        article_title.setPadding(0,30,0,0);
 
         if (isExpanded){
             rowViewTitle.setBackgroundColor(Color.RED);
