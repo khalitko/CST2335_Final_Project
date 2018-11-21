@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">CST2335_FinalProject</string>
-    <string name="Main_FoodButton">Food Nutrition Database</string>
-    <string name="Main_NewsButton">CBC News Reader</string>
-    <string name="Main_MovieButton">iMovies</string>
-    <string name="Main_BusButton">OC Transpo App</string>
+    <string name="food">Type a Food Item</string>
+    <string name="search">Search</string>
+    <string name="MovieButton">Movie Info</string>
+    <string name="NewsButton">CBC News Reader</string>
+    <string name="FoodButton">Food Nutrition Database</string>
+    <string name="BusButton">OCTranspo App</string>
+    <string name="SearchItem">Search</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SaveItem">Save this Item?</string>
+    <string name="Save">Save</string>
+    <string name="Saved">Saved!</string>
+    <string name="Author">Khalid Hafid</string>
+    <string name="HowTo">Search a food item in the text field and hit the Search Button</string>
+    <string name="Help">Help</string>
+    <string name="Error">Enter a valid food item ie: Apple</string>
 </resources>
