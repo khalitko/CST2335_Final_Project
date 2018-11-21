@@ -10,16 +10,16 @@
     android:rowCount="2"
     tools:context=".MainScreen">
 
-
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/SplashScreen_FoodButton"
         android:layout_width="wrap_content"
+        android:text="ACTION CALL SNACKBAR"
+
         android:layout_height="wrap_content"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:contentDescription="@string/Main_FoodButton"
-        android:src="@drawable/food"
-        android:text="@string/Main_FoodButton" />
+        android:onClick="foodClick"
+        android:src="@drawable/food" />
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:contentDescription="@string/Main_NewsButton"
+
         android:src="@drawable/newspaper"
-        android:text="@string/Main_NewsButton" />
+       />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -37,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:contentDescription="@string/Main_MovieButton"
+
         android:src="@drawable/movie"
-        android:text="@string/Main_MovieButton" />
+     />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:contentDescription="@string/Main_BusButton"
+
         android:src="@drawable/bus"
-        android:text="@string/Main_BusButton" />
+        />
 
 </GridLayout>
