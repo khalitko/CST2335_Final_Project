@@ -26,10 +26,6 @@ import static android.support.v4.view.accessibility.AccessibilityEventCompat.set
 public class MainScreen extends Activity {
 
 
-    private CoordinatorLayout coordinatorLayout;
-
-    private ImageButton SplashScreen_FoodButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
