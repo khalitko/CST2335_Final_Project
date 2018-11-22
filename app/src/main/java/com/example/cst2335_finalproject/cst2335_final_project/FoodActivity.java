@@ -146,7 +146,7 @@ public class FoodActivity extends AppCompatActivity {
         }
         else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(FoodActivity.this);
-            builder.setMessage(getString(R.string.Author) + "\n" + "\n" + getString(R.string.HowTo)).setTitle(R.string.Help).setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.Author) + "\n" + getString(R.string.versionNum) + "\n" + getString(R.string.HowTo)).setTitle(R.string.Help).setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
                 }
@@ -256,7 +256,7 @@ public class FoodActivity extends AppCompatActivity {
             LayoutInflater inflater = FoodActivity.this.getLayoutInflater();
             View result = null;
             result = inflater.inflate(R.layout.food_info, null);
-            TextView foodV = result.findViewById(R.id.foodTitle);
+            TextView foodV = result.findViewById(R.id.foodLabel);
             TextView nutriV = result.findViewById(R.id.nutrition);
             String[] temp = getItem(pos);
             foodV.setText(temp[0]);
