@@ -11,7 +11,7 @@
     tools:context=".MainScreen">
 
     <ImageButton
-        android:id="@+id/SplashScreen_FoodButton"
+        android:id="@+id/FoodButton"
         android:layout_width="wrap_content"
         android:text="ACTION CALL SNACKBAR"
 
