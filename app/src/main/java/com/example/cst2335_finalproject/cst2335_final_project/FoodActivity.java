@@ -69,7 +69,7 @@ public class FoodActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
         progress = findViewById(R.id.progress);
 
-        Snackbar.make(findViewById(android.R.id.content), "Food Search", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), R.string.foodSearch, Snackbar.LENGTH_SHORT).show();
         progress.setVisibility(View.VISIBLE);
 
         adapter = new Adapter();
@@ -143,10 +143,14 @@ public class FoodActivity extends AppCompatActivity {
             Intent intent = new Intent(FoodActivity.this, FoodFavorites.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.search) {
+            Snackbar.make(this.findViewById(android.R.id.content),R.string.foodSearch, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
         }
         else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(FoodActivity.this);
-            builder.setMessage(getString(R.string.Author) + "\n" + getString(R.string.versionNum) + "\n" + getString(R.string.HowTo)).setTitle(R.string.Help).setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.Author) + "\n" + "\n" + getString(R.string.HowTo)).setTitle(R.string.Help).setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
                 }
@@ -257,11 +261,15 @@ public class FoodActivity extends AppCompatActivity {
             View result = null;
             result = inflater.inflate(R.layout.food_info, null);
             TextView foodV = result.findViewById(R.id.foodLabel);
-            TextView nutriV = result.findViewById(R.id.nutrition);
+            TextView calV = result.findViewById(R.id.caloriesV);
+            TextView fatV = result.findViewById(R.id.fatV);
+            TextView carbV = result.findViewById(R.id.carbsV);
             String[] temp = getItem(pos);
             foodV.setText(temp[0]);
 
-            nutriV.setText("Calories: "+ temp[1] + " kcal Fat: " + temp[2] + "g Carb: " + temp[3] + "g");
+            calV.setText("Calories: "+ temp[1] + " kcal " ) ;
+            fatV.setText("Fat: " + temp[2] + " g ");
+            carbV.setText("Carb: " + temp[3] + " g ");
             return result;
 
         }

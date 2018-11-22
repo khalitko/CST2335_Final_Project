@@ -18,4 +18,7 @@
     <string name="Delete">Delete</string>
     <string name="DeleteMenu">Do you want to delete this food item</string>
     <string name="versionNum">Version: 2.0</string>
+    <string name="foodSearch">Food Search</string>
+    <string name="favoritesList">Favorites List</string>
+
 </resources>
