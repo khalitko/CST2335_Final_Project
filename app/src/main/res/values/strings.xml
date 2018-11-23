@@ -20,5 +20,6 @@
     <string name="versionNum">Version: 2.0</string>
     <string name="foodSearch">Food Search</string>
     <string name="favoritesList">Favorites List</string>
+    <string name="jsonDL">Json Data is downloading</string>
 
 </resources>
