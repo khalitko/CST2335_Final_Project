@@ -1,4 +1,4 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Food;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
