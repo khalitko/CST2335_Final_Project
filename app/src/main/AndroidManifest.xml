@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".NewsActivity" />
         <activity android:name=".NewsContentRow" />
-        <activity android:name=".NewsTitleRow"></activity>
+        <activity android:name=".NewsTitleRow" />
     </application>
 
 </manifest>

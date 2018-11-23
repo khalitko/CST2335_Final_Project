@@ -8,6 +8,14 @@
     tools:context=".NewsActivity"
     android:background="@android:color/black">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/news_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray">
+
+    </android.support.v7.widget.Toolbar>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -15,66 +23,12 @@
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
-    <!--<Toolbar-->
-        <!--android:id="@+id/news_tool_bar"-->
-        <!--style="@style/newsToolBar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:titleTextColor="@android:color/white">-->
-
-    <!--</Toolbar>-->
-
-    <!--<Button-->
-        <!--android:id="@+id/stats_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/statistics"-->
-        <!--android:textColor="@android:color/white"/>-->
-
-    <GridLayout
-        android:id="@+id/option_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:verticalSpacing="5dp"
-        android:horizontalSpacing="5dp">
-
-        <TextView
-            android:id="@+id/saved_articles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saved_articles"
-            android:textColor="@android:color/white"
-            android:background="@android:color/black"
-            android:textSize="20dp"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_columnWeight="1"/>
-
-        <TextView
-            android:id="@+id/news_articles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/news_articles"
-            android:textColor="@android:color/white"
-            android:background="@android:color/black"
-            android:textSize="20dp"
-            android:layout_column="2"
-            android:layout_gravity="center"
-            android:layout_columnWeight="1"/>
-
-    </GridLayout>
-
-
-
     <ExpandableListView
         android:id="@+id/saved_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </ExpandableListView>
-
-
 
     <ExpandableListView
         android:id="@+id/newsList"
@@ -87,4 +41,8 @@
     </ExpandableListView>
 
 
+    <TextView
+        android:id="@+id/snackbar_text_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

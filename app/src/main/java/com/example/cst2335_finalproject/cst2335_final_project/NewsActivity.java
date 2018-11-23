@@ -1,48 +1,37 @@
 package com.example.cst2335_finalproject.cst2335_final_project;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
+
 import android.widget.ExpandableListView;
-import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class NewsActivity extends Activity {
+public class NewsActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "NewsActivity";
 
     private ExpandableListView listView;
@@ -55,13 +44,7 @@ public class NewsActivity extends Activity {
     private NewsAdapter newsAdapter;
 
     public int counter;
-
-    private TextView savedArticles;
-    private TextView newsArticles;
-    private Button statsButton;
-
-    private GridView optionGrid;
-
+    private Toast toast;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -71,7 +54,7 @@ public class NewsActivity extends Activity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-//        displayToolBar();
+        createToolBar();
 
         article_title = findViewById(R.id.article_title);
 
@@ -80,60 +63,66 @@ public class NewsActivity extends Activity {
         newsDescription = new ArrayList<>();
         newsPhotoPath = new ArrayList<>();
 
-        savedArticles = findViewById(R.id.saved_articles);
-        newsArticles = findViewById(R.id.news_articles);
-
         NewsQuery query = new NewsQuery();
         query.execute();
 
         newsAdapter = new NewsAdapter(this,newsTitles,newsUrl,newsDescription,newsPhotoPath);
 
         savedListView = findViewById(R.id.saved_list);
-        //optionGrid = findViewById(R.id.option_grid);
-
-
-
-        newsArticles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listView.getVisibility() == View.INVISIBLE){
-                    savedListView.setVisibility(View.INVISIBLE);
-                    listView.setVisibility(View.VISIBLE);
-
-                    newsArticles.setBackgroundColor(Color.RED);
-                    savedArticles.setBackgroundColor(Color.BLACK);
-                } else {
-                    listView.setVisibility(View.INVISIBLE);
-
-                    newsArticles.setBackgroundColor(Color.BLACK);
-                }
-            }
-        });
-
-        savedArticles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (savedListView.getVisibility() == View.INVISIBLE){
-                    listView.setVisibility(View.INVISIBLE);
-                    savedListView.setVisibility(View.VISIBLE);
-
-                    savedArticles.setBackgroundColor(Color.BLUE);
-                    newsArticles.setBackgroundColor(Color.BLACK);
-                } else {
-                    savedListView.setVisibility(View.INVISIBLE);
-
-                    savedArticles.setBackgroundColor(Color.BLACK);
-                }
-            }
-        });
     }
 
-//    private void displayToolBar(){
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.news_tool_bar);
-//        setActionBar(myToolbar);
-//        getActionBar().setDisplayShowTitleEnabled(true);
-//        myToolbar.setTitle("News Reader");
-//    }
+    private void createToolBar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.news_toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    public boolean onCreateOptionsMenu(Menu m){
+        getMenuInflater().inflate(R.menu.toolbar_menu_news,m);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem mi){
+        switch (mi.getItemId()){
+            case R.id.top_articles:
+                Log.d("Toolbar","Top articles selected");
+                savedListView.setVisibility(View.INVISIBLE);
+                listView.setVisibility(View.VISIBLE);
+                //toast.makeText(this,"Top Articles",Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.snackbar_text_holder),"Top Articles",Snackbar.LENGTH_LONG).show();
+                break;
+            case R.id.favorite_articles:
+                Log.d("Toolbar","Favorite articles selected");
+                listView.setVisibility(View.INVISIBLE);
+                savedListView.setVisibility(View.VISIBLE);
+                //toast.makeText(this,"Favorites",Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.snackbar_text_holder),"Favorites",Snackbar.LENGTH_LONG).show();
+                break;
+            case R.id.help:
+                AlertDialog.Builder builder = new AlertDialog.Builder((this));
+                builder.setTitle("Help");
+                builder.setIcon(R.drawable.news_help);
+                builder.setMessage("Author: Umber Setia " +
+                        "\nVersion: 2018-12-03 " +
+                        "\nInstructions: " +
+                        "\n  Click pages icon to view top articles." +
+                        "\n  Click plain yellow star to view your saved" +
+                        "\n  articles." +
+                        "\n  Click on an article to see it's description." +
+                        "\n  Click the yellow star with a '+' in it to save" +
+                        "\n  the article"
+                );
+                builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("Done", "User clicked OK");
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+        }
+        return true;
+    }
 
     /**
      * https://stackoverflow.com/questions/27415449/xmlpullparser-parse-nested-tag
@@ -141,7 +130,7 @@ public class NewsActivity extends Activity {
     private class NewsQuery extends AsyncTask<String, Integer, String>{
         private String iconName;
         private Bitmap bitmap;
-        private String result,result1,cdata;
+        private String result,cdata;
 
         public boolean fileExistance(String fName){
             File file = getBaseContext().getFileStreamPath(fName);
@@ -153,6 +142,8 @@ public class NewsActivity extends Activity {
             Log.i("Downloading image ", path);
 
             bitmap = HttpUtils.getImage(path);
+            //https://stackoverflow.com/questions/18342463/stretch-image-to-fit
+            bitmap = Bitmap.createScaledBitmap(bitmap,1000,500,true);
 //                FileOutputStream outputStream = openFileOutput("NewsImages.jpg",Context.MODE_PRIVATE);
 //                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
 //                outputStream.flush();
@@ -203,10 +194,10 @@ public class NewsActivity extends Activity {
                                 cdata = xpp.getText();
 
                                 try {
+                                    Log.i("Article Image download", "trying .jpg");
                                     result = cdata.substring(cdata.indexOf("src='")+5,cdata.indexOf(".jpg'")+5);
                                 } catch (Exception e){
-                                    Log.i("Article Image download", ".JPG instead of .jpg");
-                                    result = cdata.substring(cdata.indexOf("src='")+5,cdata.indexOf(".JPG'")+5);
+                                    fileTypeJpeg();
                                 }
 
                                 if (result.length() > 0){
@@ -244,6 +235,16 @@ public class NewsActivity extends Activity {
             return "";
         }
 
+        private void fileTypeJpeg(){
+            try {
+                Log.i("Article Image download", "trying .JPG");
+                result = cdata.substring(cdata.indexOf("src='")+5,cdata.indexOf(".JPG'")+5);
+            } catch (Exception e){
+                Log.i("Article Image download", "trying .jpeg");
+                result = cdata.substring(cdata.indexOf("src='")+5,cdata.indexOf(".jpeg'")+6);
+            }
+        }
+
         public void onProgressUpdate(Integer ...value){
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(value[0]);
@@ -256,8 +257,6 @@ public class NewsActivity extends Activity {
             for (int i = 0; i < 2; i++){
                 newsTitles.remove(0);
                 newsUrl.remove(0);
-                //newsDescription.remove(0);
-                //newsPhotoPath.remove(0);
             }
             newsDescription.remove(0);
             newsAdapter.notifyDataSetChanged();
