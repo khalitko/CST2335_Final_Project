@@ -1,50 +1,70 @@
 package com.example.cst2335_finalproject.cst2335_final_project;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.graphics.ColorUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.net.URI;
 import java.util.ArrayList;
 
 public class NewsAdapter extends BaseExpandableListAdapter {
 
     private final Activity context;
     private final ArrayList<String> titleArray, urlArray, descriptionArray;
+    private final ArrayList<Bitmap> newsPhotoPath;
+    private Bitmap bitmap;
 
-
-    public NewsAdapter(Activity context, ArrayList<String> titleArray, ArrayList<String> urlArray, ArrayList<String> descriptionArray){
+    public NewsAdapter(Activity context, ArrayList<String> titleArray, ArrayList<String> urlArray, ArrayList<String> descriptionArray, ArrayList<Bitmap> newsPhotoPath){
 
         this.context = context;
         this.titleArray = titleArray;
         this.urlArray = urlArray;
         this.descriptionArray = descriptionArray;
+        this.newsPhotoPath = newsPhotoPath;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         LayoutInflater inflaterChild = context.getLayoutInflater();
         View rowViewContent = inflaterChild.inflate(R.layout.news_content_row, null, true);
 
         TextView article_description = (TextView) rowViewContent.findViewById(R.id.article_description);
         TextView article_url = (TextView) rowViewContent.findViewById(R.id.article_url);
+        ImageView article_image = (ImageView) rowViewContent.findViewById(R.id.article_image);
 
-        article_url.setText(urlArray.get(groupPosition));
-        article_url.setPadding(0,50,0,0);
-        article_url.setTextColor(Color.WHITE);
+//        article_url.setText(urlArray.get(groupPosition));
+          article_url.setPadding(0,50,0,0);
+//        article_url.setTextColor(Color.BLUE);
 
-//        if (groupPosition != 0){
-//            article_description.setText(descriptionArray.get(groupPosition-1));
-//            article_description.setPadding(0,0,0,0);
-//        }
+        article_url.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(urlArray.get(groupPosition)));
+                context.startActivity(intent);
+            }
+        });
+
+        article_description.setText(descriptionArray.get(groupPosition));
+        article_description.setPadding(0,0,0,0);
+        article_description.setTextColor(Color.WHITE);
 
 
-
+        article_image.setImageBitmap(newsPhotoPath.get(groupPosition));
 
         return rowViewContent;
     }

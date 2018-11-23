@@ -15,6 +15,22 @@
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
+    <!--<Toolbar-->
+        <!--android:id="@+id/news_tool_bar"-->
+        <!--style="@style/newsToolBar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:titleTextColor="@android:color/white">-->
+
+    <!--</Toolbar>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/stats_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/statistics"-->
+        <!--android:textColor="@android:color/white"/>-->
+
     <GridLayout
         android:id="@+id/option_grid"
         android:layout_width="match_parent"
@@ -69,5 +85,6 @@
         android:background="@android:color/black"
         android:visibility="invisible">
     </ExpandableListView>
+
 
 </LinearLayout>

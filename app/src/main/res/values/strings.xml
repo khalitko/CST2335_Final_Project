@@ -8,4 +8,9 @@
     <string name="news_reader">News Reader</string>
     <string name="saved_articles">Saved Articles</string>
     <string name="news_articles">News Articles</string>
+    <string name="read_more">Read More</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="statistics">Statistics</string>
 </resources>
