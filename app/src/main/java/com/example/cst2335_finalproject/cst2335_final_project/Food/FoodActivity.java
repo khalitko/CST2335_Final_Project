@@ -1,8 +1,6 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Food;
 
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -17,20 +15,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.example.cst2335_finalproject.cst2335_final_project.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +38,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FoodActivity extends AppCompatActivity {
 
@@ -55,25 +54,22 @@ public class FoodActivity extends AppCompatActivity {
     String search, label, calorieValue, fatValue, carbValue;
     FoodDatabaseHelper dbHelper;
     SQLiteDatabase db;
-    ArrayList<String[]> log = new ArrayList<>();
-
-    Adapter adapter;
+    ArrayList<String[]> foods = new ArrayList<>();
+    ArrayList<HashMap<String, String>> foodItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-        searchItem = findViewById(R.id.searchItem);
-        itemText = findViewById(R.id.itemText);
-        list = findViewById(R.id.list);
-        progress = findViewById(R.id.progress);
+        searchItem = (Button) findViewById(R.id.searchItem);
+        itemText = (EditText) findViewById(R.id.itemText);
+        list = (ListView) findViewById(R.id.list);
+        progress = (ProgressBar)findViewById(R.id.progress);
 
         Snackbar.make(findViewById(android.R.id.content), R.string.foodSearch, Snackbar.LENGTH_SHORT).show();
         progress.setVisibility(View.VISIBLE);
-
-        adapter = new Adapter();
-        list.setAdapter(adapter);
+        foodItemList = new ArrayList<>();
 
         Toolbar toolbar = findViewById(R.id.toolbar); //set up toolbar
         setSupportActionBar(toolbar);
@@ -101,12 +97,24 @@ public class FoodActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                                String[] current = log.get(position);
+
+                                HashMap<String, String> m = foodItemList.get(0);//it will get the first HashMap Stored in array list
+
+                                String[] strArr = new String[m.size()];
+                                int i = 0;
+                                for (HashMap<String, String> hash : foodItemList) {
+
+                                    for (String current : hash.values()) {
+                                        strArr[i] = current;
+                                        i++;
+                                    }
+                                }
+
                                 ContentValues cValues = new ContentValues();
-                                cValues.put(FoodDatabaseHelper.KEY_LABEL,current[0]);
-                                cValues.put(FoodDatabaseHelper.KEY_CALORIES,current[1]);
-                                cValues.put(FoodDatabaseHelper.KEY_FAT,current[2]);
-                                cValues.put(FoodDatabaseHelper.KEY_CARBS,current[3]);
+                                cValues.put(FoodDatabaseHelper.KEY_LABEL,strArr[0]);
+                                cValues.put(FoodDatabaseHelper.KEY_CALORIES,strArr[1]);
+                                cValues.put(FoodDatabaseHelper.KEY_FAT,strArr[2]);
+                                cValues.put(FoodDatabaseHelper.KEY_CARBS,strArr[3]);
                                 db.insert(FoodDatabaseHelper.TABLE_NAME,"NullColumnName",cValues);
                                 Toast toast = Toast.makeText(getApplicationContext(),R.string.Saved, Toast.LENGTH_LONG);
                                 toast.show();
@@ -170,6 +178,15 @@ public class FoodActivity extends AppCompatActivity {
         JSONArray jArray;
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Snackbar.make(FoodActivity.this.findViewById(android.R.id.content),R.string.jsonDL, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
+
+        }
+
+        @Override
         protected String doInBackground(String... strings) {
 
 
@@ -197,17 +214,26 @@ public class FoodActivity extends AppCompatActivity {
                         JSONObject indexObject = jArray.getJSONObject(index);
                         JSONObject foodObject = indexObject.getJSONObject("food");
                         // Pulling items from the array
-                        label = foodObject.getString("label");
+                        String  label = foodObject.getString("label");
                         publishProgress(40);
                         JSONObject nutriObject = foodObject.getJSONObject("nutrients");
                         Log.i(ACTIVITY_NAME, nutriObject.toString());
                         publishProgress(60);
-                        calorieValue = nutriObject.getString("ENERC_KCAL");
+                        String calorieValue = nutriObject.getString("ENERC_KCAL");
                         publishProgress(80);
-                        fatValue = nutriObject.getString("FAT");
+                        String  fatValue = nutriObject.getString("FAT");
                         publishProgress(90);
-                        carbValue = nutriObject.getString("CHOCDF");
+                        String  carbValue = nutriObject.getString("CHOCDF");
                         publishProgress(100);
+
+                        HashMap<String, String> food = new HashMap<>();
+                        food.put("Label", label);
+                        food.put("Calories", "Calories: "+ calorieValue );
+                        food.put("Fat", "Fat: " + fatValue + "g");
+                        food.put("Carbs", "Carb: " + carbValue+ "g");
+
+                        foodItemList.add(food);
+
                     } catch (JSONException e) {
                         // Oops
                     }
@@ -227,6 +253,7 @@ public class FoodActivity extends AppCompatActivity {
 
         @Override
         public void onPostExecute(String s){
+            super.onPostExecute(s);
             if (jArray == null || jArray.isNull(0)) {
                 Toast toast = Toast.makeText(getApplicationContext(), R.string.Error, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -234,44 +261,13 @@ public class FoodActivity extends AppCompatActivity {
                 view.setBackgroundColor(Color.RED);
                 toast.show();
             }else{
-                String[] temp = new String[]{label,calorieValue,fatValue, carbValue};
-                log.add(temp);
-                adapter.notifyDataSetChanged();
+                ListAdapter adapter = new SimpleAdapter(FoodActivity.this, foodItemList,
+                        R.layout.food_info, new String[]{ "Label","Calories", "Fat", "Carbs"},
+                        new int[]{R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV});
+                list.setAdapter(adapter);
             }
             progress.setVisibility(View.INVISIBLE);
         }
 
-    }
-    private class Adapter extends BaseAdapter {
-        @Override
-        public int getCount(){
-            return  log.size();
-        }
-        @Override
-        public String[] getItem(int pos){
-            return  log.get(pos);
-        }
-        @Override
-        public long getItemId(int pos){
-            return pos;
-        }
-        @Override
-        public View getView(int pos, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = FoodActivity.this.getLayoutInflater();
-            View result = null;
-            result = inflater.inflate(R.layout.food_info, null);
-            TextView foodV = result.findViewById(R.id.foodLabel);
-            TextView calV = result.findViewById(R.id.caloriesV);
-            TextView fatV = result.findViewById(R.id.fatV);
-            TextView carbV = result.findViewById(R.id.carbsV);
-            String[] temp = getItem(pos);
-            foodV.setText(temp[0]);
-
-            calV.setText("Calories: "+ temp[1] + " kcal " ) ;
-            fatV.setText("Fat: " + temp[2] + " g ");
-            carbV.setText("Carb: " + temp[3] + " g ");
-            return result;
-
-        }
     }
 }

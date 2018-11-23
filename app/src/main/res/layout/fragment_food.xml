@@ -14,7 +14,7 @@
         android:layout_marginBottom="2dp"
         android:background="#7CC242"
         app:subtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle"
-        app:title="EDAMAM"
+        app:title="Favorites"
         app:titleTextAppearance="@style/ToolbarTextAppearance.Title" />
 
     <ListView

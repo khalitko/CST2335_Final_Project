@@ -1,12 +1,11 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Food;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.cst2335_finalproject.cst2335_final_project.FoodFragment;
+import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 /**
  * Activity for favorites list, loads fragment into the blank frame

@@ -1,4 +1,4 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Food;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,13 +14,13 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final String ACTIVITY_NAME = "FoodDatabaseHelper";
     static String DATABASE_NAME = "Favorites.db";
-    static int VERSION_NUM = 2;
+    static int VERSION_NUM = 1;
     final static String KEY_ID = "_id";
     final static String KEY_LABEL = "Label";
     final static String KEY_CALORIES = "Calories";
     final static String KEY_FAT = "Fat";
     final static String KEY_CARBS = "Carbs";
-    final static String TABLE_NAME = "Favorties";
+    final static String TABLE_NAME = "Favorites";
     final static String creatTable = "CREATE TABLE " + TABLE_NAME +"("+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "+ KEY_LABEL +" TEXT NOT NULL, "+ KEY_CALORIES +" TEXT NOT NULL, "+ KEY_FAT +" TEXT NOT NULL, " + KEY_CARBS +  " TEXT NOT NULL);";
 
 
@@ -55,4 +55,10 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
         Log.i(ACTIVITY_NAME, "Calling onUpgrade, Old version = " + oldVersion + " New version = " + newVersion);
     }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
+    }
+
 }

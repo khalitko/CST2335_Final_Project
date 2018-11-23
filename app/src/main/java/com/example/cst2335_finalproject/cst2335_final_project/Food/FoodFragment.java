@@ -1,14 +1,11 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Food;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +22,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
+
+import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 
 public class FoodFragment extends Fragment {
