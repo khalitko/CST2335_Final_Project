@@ -22,4 +22,10 @@
     <string name="favoritesList">Favorites List</string>
     <string name="jsonDL">Json Data is downloading</string>
 
+
+    <!-- Movie Section Strings [Dylan McCarthy] -->
+    <string name="movieFavouriteText">Your Favourite Movies:</string>
+    <string name="queryMovieButton">Search Movie!</string>
+    <string name="movieTextEntryHint">Enter Movie Title Here!</string>
+
 </resources>
