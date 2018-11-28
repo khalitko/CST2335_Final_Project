@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <item android:id="@+id/action_one_favourites"
+        android:title="@string/iconFavourites"
+        android:icon="@drawable/icon_movie_favs"
+        android:orderInCategory="101"
+        app:showAsAction="ifRoom"
+        />
+
+    <item android:id="@+id/action_two_home"
+        android:title="@string/iconHome"
+        android:icon="@drawable/icon_movie_home"
+        android:orderInCategory="102"
+        app:showAsAction="ifRoom"
+        />
+
+    <item android:id="@+id/action_three_help"
+        android:title="@string/iconHelp"
+        android:icon="@drawable/icon_movie_about"
+        android:orderInCategory="103"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>

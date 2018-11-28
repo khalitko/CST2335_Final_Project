@@ -28,5 +28,8 @@
     <string name="queryMovieButton">Search Movie!</string>
     <string name="movieTextEntryHint">Enter Movie Title Here!</string>
     <string name="recentSearchHintNone">"Recent: no recent searches :("</string>
+    <string name="iconFavourites">Favourite Movies</string>
+    <string name="iconHome">Home</string>
+    <string name="iconHelp">Help/Info</string>
 
 </resources>

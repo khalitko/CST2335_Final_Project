@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MovieActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/movieBar"
+        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
