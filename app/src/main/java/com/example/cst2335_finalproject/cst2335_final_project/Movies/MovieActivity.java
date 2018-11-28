@@ -1,10 +1,12 @@
-package com.example.cst2335_finalproject.cst2335_final_project;
+package com.example.cst2335_finalproject.cst2335_final_project.Movies;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+
+import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 public class MovieActivity extends AppCompatActivity {
 

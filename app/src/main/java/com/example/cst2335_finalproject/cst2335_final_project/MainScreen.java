@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.cst2335_finalproject.cst2335_final_project.Food.FoodActivity;
+import com.example.cst2335_finalproject.cst2335_final_project.Movies.MovieActivity;
 
 public class MainScreen extends Activity {
 
