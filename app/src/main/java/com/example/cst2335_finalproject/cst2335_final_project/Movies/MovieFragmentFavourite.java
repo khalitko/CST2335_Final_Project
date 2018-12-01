@@ -1,5 +1,6 @@
 package com.example.cst2335_finalproject.cst2335_final_project.Movies;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
-public class MovieFragmentMain extends Fragment {
-
-    public MovieFragmentMain(){}
-
+public class MovieFragmentFavourite extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -19,4 +17,11 @@ public class MovieFragmentMain extends Fragment {
 
         return screen;
     }
+
+    /*
+    @Override
+    public void onAttach(Activity context){
+        super.onAttach(context);
+    } */
 }
+

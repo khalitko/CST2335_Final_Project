@@ -31,5 +31,8 @@
     <string name="iconFavourites">Favourite Movies</string>
     <string name="iconHome">Home</string>
     <string name="iconHelp">Help/Info</string>
+    <string name="BtnOkay">Okay</string>
+    <string name="aboutDialogTitle">About the Application</string>
+    <string name="aboutMessageString">"Author: Dylan McCarthy\n\nSearch a movie by typing its title into the search bar at the top of the screen.\n\nSelecting a movie from the recent search or favourites list will give you more detail on the film.\n\nVersion 1.2"</string>
 
 </resources>
