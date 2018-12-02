@@ -21,12 +21,16 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
     <ExpandableListView
         android:id="@+id/saved_list"
+        android:divider="@drawable/news_gradient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="@android:color/black"
+        android:visibility="gone">
 
     </ExpandableListView>
 
@@ -37,7 +41,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:background="@android:color/black"
-        android:visibility="invisible">
+        android:visibility="visible">
     </ExpandableListView>
 
 

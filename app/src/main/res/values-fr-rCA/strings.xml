@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- News Section Strings [Umber Setia] -->
+    <string name="news_reader">Lecteur de Nouvelle CBC</string>
+
+    <!-- Toolbar and items -->
+    <string name="saved_articles">Nouvelles Enregistré</string>
+    <string name="top_articles">Nouvelles</string>
+    <string name="read_more_news"><u>Lire la suite</u></string>
+    <string name="news_help">Aide</string>
+    <string name="news_toolbar_help"> Autheur: Umber Setia
+                        \n Version: 2018-12-03
+                        \n Instructions:
+                        \n\t\t\t Cliquez sur l\'icône des pages pour voir
+                        \n\t\t\t les meilleurs articles de presse.
+                        \n\t\t\t Cliquez sur une étoile jaune pour afficher
+                        \n\t\t\t vos articles favoris.
+                        \n\t\t\t Cliquez sur un article pour voir la
+                        \n\t\t\t description.
+                        \n\t\t\t Cliquez sur l\'étoile jaune avec un + pour
+                        \n\t\t\t sauvegarder l\'article</string>
+    <string name="news_dialog_ok">D\'accord</string>
+
+    <!-- Toast and Snackbars -->
+    <string name="article_removed">Article de presse enlevé</string>
+    <string name="news_error">Une erreur est survenue</string>
+    <string name="article_saved">Article de presse enregistré</string>
+    <string name="article_already_saved">Article de presse déjà enregistré</string>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</resources>

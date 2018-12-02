@@ -9,11 +9,28 @@
     tools:context=".NewsContentRow">
 
 
-    <ImageView
-        android:id="@+id/article_image"
+    <!--<ImageView-->
+        <!--android:id="@+id/article_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"/>-->
+    <TextView
+        android:id="@+id/article_title_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:id="@+id/article_date_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/article_title"
+        android:layout_alignRight="@+id/article_title"
+        android:layout_alignBottom="@+id/article_title"
+        android:gravity="center"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/article_description"
@@ -24,7 +41,17 @@
         android:id="@+id/article_url"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/read_more"
+        android:text="@string/read_more_news"
         android:textColor="@android:color/holo_blue_dark"/>
+
+    <ImageView
+        android:id="@+id/save_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/delete_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

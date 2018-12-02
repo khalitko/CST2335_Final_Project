@@ -11,5 +11,6 @@ public class NewsContentRow extends Activity {
         setContentView(R.layout.news_content_row);
 
 
+
     }
 }
