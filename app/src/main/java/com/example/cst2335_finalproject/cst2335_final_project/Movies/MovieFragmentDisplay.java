@@ -150,7 +150,7 @@ public class MovieFragmentDisplay extends Fragment {
                     moviePoster = BitmapFactory.decodeStream(moviePosterConnnection.getInputStream());
                     onProgressUpdate(90);
                 }
-                String imageFile = moviePoster + "";
+                String imageFile = movieTitle + ".jpg";
                 if (fileExistence(imageFile))
                 {
                     FileInputStream fis = null;
