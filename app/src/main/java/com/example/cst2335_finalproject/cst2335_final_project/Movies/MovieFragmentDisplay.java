@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ import java.net.URLEncoder;
 public class MovieFragmentDisplay extends Fragment {
 
     private ProgressBar progressBar;
+    private Button doneBtn;
+    private ImageButton addFavsBtn;
 
     private ImageView posterDisplay;
     private TextView titleDisplay, releaseDisplay, ratingDisplay, runtimeDisplay, plotDisplay, starringDisplay;
@@ -49,6 +53,8 @@ public class MovieFragmentDisplay extends Fragment {
         View screen = inflater.inflate(R.layout.activity_movie_fragment_display, container, false);
 
         progressBar = screen.findViewById(R.id.movieDisplayBar);
+        doneBtn = screen.findViewById(R.id.displayReturnBtn);
+        addFavsBtn = screen.findViewById(R.id.addToFavBtn);
 
         posterDisplay = screen.findViewById(R.id.movieDisplayPoster);
         titleDisplay = screen.findViewById(R.id.movieDisplayTitle);
@@ -59,6 +65,11 @@ public class MovieFragmentDisplay extends Fragment {
         starringDisplay = screen.findViewById(R.id.movieDisplayStarring);
 
         progressBar.setVisibility(View.VISIBLE);
+
+        doneBtn.setOnClickListener((v -> {
+            ((MovieActivity)getActivity()).toMovieMain();
+        }));
+
 
         if (bundle != null) {
             movieURL = bundle.getString("Title", "UTF-8");

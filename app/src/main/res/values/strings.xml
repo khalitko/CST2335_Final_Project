@@ -40,5 +40,7 @@
     <string name="movieDisplayRuntime">\nRuntime: \n</string>
     <string name="movieDisplayPlot">\nDescription: \n</string>
     <string name="movieDisplayStarring">\nStarring: \n</string>
+    <string name="movieDoneBTN">Done</string>
+
 
 </resources>
