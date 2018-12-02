@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -93,8 +94,8 @@ public class NewsAdapter extends BaseExpandableListAdapter {
         TextView articleUrl = (TextView) rowViewContent.findViewById(R.id.article_url);
         TextView articleTitleContent = (TextView) rowViewContent.findViewById(R.id.article_title_content);
         TextView articleDateContent = (TextView)rowViewContent.findViewById(R.id.article_date_content);
-        final ImageView saveArticle = (ImageView) rowViewContent.findViewById(R.id.save_icon);
-        ImageView deleteArticle = (ImageView) rowViewContent.findViewById(R.id.delete_icon);
+        ImageButton saveArticle = (ImageButton) rowViewContent.findViewById(R.id.save_icon);
+        ImageButton deleteArticle = (ImageButton) rowViewContent.findViewById(R.id.delete_icon);
 
         articleUrl.setPadding(0,50,0,0);
         articleUrl.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +123,7 @@ public class NewsAdapter extends BaseExpandableListAdapter {
         } else {
             deleteArticle.setVisibility(View.GONE);
         }
+        saveArticle.setBackgroundColor(Color.BLACK);
         saveArticle.setImageResource(R.drawable.news_add_to_favorites);
         saveArticle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +146,7 @@ public class NewsAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-
+        deleteArticle.setBackgroundColor(Color.BLACK);
         deleteArticle.setImageResource(R.drawable.news_remove_from_favorites);
         deleteArticle.setOnClickListener(new View.OnClickListener() {
             @Override

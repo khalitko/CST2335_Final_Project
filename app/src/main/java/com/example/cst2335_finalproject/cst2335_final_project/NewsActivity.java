@@ -24,6 +24,7 @@ import android.view.View;
 
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -50,6 +51,8 @@ public class NewsActivity extends AppCompatActivity {
     private ExpandableListView savedListView;
     private ProgressBar progressBar;
     private Toolbar toolbar;
+    private TextView topArticles;
+    private TextView favArticles;
 
     /**
      * Holds items that are extracted from the CBC website.
@@ -182,17 +185,24 @@ public class NewsActivity extends AppCompatActivity {
      * @return true
      */
     public boolean onOptionsItemSelected(MenuItem mi){
+        topArticles = (TextView) findViewById(R.id.top_articles);
+        topArticles.setBackgroundColor(Color.LTGRAY);
+        favArticles = (TextView) findViewById(R.id.favorite_articles);
         switch (mi.getItemId()){
             case R.id.top_articles:
                 Log.d("Toolbar","Top articles selected");
                 savedListView.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
+                topArticles.setBackgroundColor(Color.LTGRAY);
+                favArticles.setBackgroundColor(Color.WHITE);
                 Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.top_articles,Snackbar.LENGTH_LONG).show();
                 break;
             case R.id.favorite_articles:
                 Log.d("Toolbar","Favorite articles selected");
                 listView.setVisibility(View.GONE);
                 savedListView.setVisibility(View.VISIBLE);
+                topArticles.setBackgroundColor(Color.WHITE);
+                favArticles.setBackgroundColor(Color.LTGRAY);
                 updateSavedList();
                 Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.saved_articles,Snackbar.LENGTH_LONG).show();
                 break;
@@ -377,6 +387,9 @@ public class NewsActivity extends AppCompatActivity {
          * @param result
          */
         public void onPostExecute(String result){
+            //Default selected Menu in toolbar
+            topArticles = (TextView) findViewById(R.id.top_articles);
+            topArticles.setBackgroundColor(Color.LTGRAY);
 
             listView = findViewById(R.id.newsList);
 
