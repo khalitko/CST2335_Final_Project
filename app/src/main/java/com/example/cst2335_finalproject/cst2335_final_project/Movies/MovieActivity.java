@@ -21,6 +21,7 @@ import com.example.cst2335_finalproject.cst2335_final_project.R;
 public class MovieActivity extends AppCompatActivity {
 
     protected static final String ACTIVITY_NAME = "MovieActivity";
+    private boolean inHomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +33,7 @@ public class MovieActivity extends AppCompatActivity {
         setSupportActionBar(movieBar);
         if (getActionBar() != null) getActionBar().setDisplayShowTitleEnabled(true);
 
-        View movieFrameLayout = findViewById(R.id.movieFrameLayout);
-        MovieFragmentMain movieFragmentMain = new MovieFragmentMain();
-        Bundle infoToPass = new Bundle();
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fTrans = fm.beginTransaction();
-        fTrans.replace(R.id.movieFrameLayout, movieFragmentMain)
-            .commit();
+        toMovieMain();
     }
 
     @Override
@@ -59,9 +53,11 @@ public class MovieActivity extends AppCompatActivity {
 
             case R.id.action_two_home:
                 Log.d("Toolbar", "Action_Two [Home] Selected");
-                Intent resultIntent = new Intent( );
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
+                if (inHomeScreen) {
+                    Intent resultIntent = new Intent();
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                } else {  toMovieMain();  }
                 break;
 
             case R.id.action_three_help:
@@ -71,15 +67,37 @@ public class MovieActivity extends AppCompatActivity {
                         .setMessage(R.string.aboutMessageString)
                         .setNegativeButton(R.string.BtnOkay, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            //THEN DO NOTHING//
-                        }
-                        });
+                            // User cancelled the dialog // THEN DO NOTHING //
+                        }});
                 // Create the AlertDialog
                 AlertDialog dialog = builderAboutMovies.create();
                 dialog.show();
                 break;
         }
         return true;
+    }
+
+    public void searchForAMovie(String movieTitle){
+        Bundle infoToPass = new Bundle();
+        infoToPass.putString("Title", movieTitle);
+
+        inHomeScreen = false;
+
+        MovieFragmentDisplay movieFragmentDisplay = new MovieFragmentDisplay();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fTrans = fm.beginTransaction();
+        movieFragmentDisplay.setArguments(infoToPass);
+        fTrans.replace(R.id.movieFrameLayout, movieFragmentDisplay)
+                .commit();
+    }
+
+    public void toMovieMain(){
+        MovieFragmentMain movieFragmentMain = new MovieFragmentMain();
+
+        inHomeScreen = true;
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fTrans = fm.beginTransaction();
+        fTrans.replace(R.id.movieFrameLayout, movieFragmentMain)
+                .commit();
     }
 }

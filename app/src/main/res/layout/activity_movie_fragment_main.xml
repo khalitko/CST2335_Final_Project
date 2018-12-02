@@ -17,6 +17,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:hint="@string/movieTextEntryHint"
+        android:textColor="#091849"
+        android:backgroundTint="#0a0017"
         />
 
     <Button
@@ -27,6 +29,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/queryMovieButton"
+        android:textColor="#919195"
+        android:background="#091849"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
         />
 
     <TextView

@@ -17,11 +17,5 @@ public class MovieFragmentFavourite extends Fragment {
 
         return screen;
     }
-
-    /*
-    @Override
-    public void onAttach(Activity context){
-        super.onAttach(context);
-    } */
 }
 

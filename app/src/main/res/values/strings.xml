@@ -34,5 +34,11 @@
     <string name="BtnOkay">Okay</string>
     <string name="aboutDialogTitle">About the Application</string>
     <string name="aboutMessageString">"Author: Dylan McCarthy\n\nSearch a movie by typing its title into the search bar at the top of the screen.\n\nSelecting a movie from the recent search or favourites list will give you more detail on the film.\n\nVersion 1.2"</string>
+    <string name="movieDisplayTitle">Title: \n</string>
+    <string name="movieDisplayRelease">\nReleased: \n</string>
+    <string name="movieDisplayRating">\nRating: \n</string>
+    <string name="movieDisplayRuntime">\nRuntime: \n</string>
+    <string name="movieDisplayPlot">\nDescription: \n</string>
+    <string name="movieDisplayStarring">\nStarring: \n</string>
 
 </resources>
