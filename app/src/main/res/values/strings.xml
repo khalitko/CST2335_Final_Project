@@ -24,7 +24,7 @@
 
 
     <!-- Movie Section Strings [Dylan McCarthy] -->
-    <string name="movieFavouriteText">Your Favourite Movies:</string>
+    <string name="movieFavouriteText"><u>Your Favourite Movies:</u></string>
     <string name="queryMovieButton">Search Movie!</string>
     <string name="movieTextEntryHint">Enter Movie Title Here!</string>
     <string name="mainMovieFavButton">Favourites!</string>
@@ -46,6 +46,7 @@
     <string name="BtnCancel">Cancel</string>
     <string name="addedMovieToDB">" has been added to your Favourites!"</string>
     <string name="alreadyAddedMovieToDB">" is already in your Favourites!</string>
+    <string name="movieStatsBtn">Statistics</string>
 
     <!--Not Used -->
     <string name="recentSearchHintNone">"Recent: no recent searches :("</string>
