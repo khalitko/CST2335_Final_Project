@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".NewsActivity"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    android:id="@+id/activity_news">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/news_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray">
+        android:background="@drawable/news_toolbar_design">
 
     </android.support.v7.widget.Toolbar>
 

@@ -13,6 +13,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -47,12 +51,12 @@ public class NewsActivity extends AppCompatActivity {
     /**
      * Items that are seen on the screen.
      */
-    private ExpandableListView listView;
-    private ExpandableListView savedListView;
+    public ExpandableListView listView;
+    public ExpandableListView savedListView;
     private ProgressBar progressBar;
     private Toolbar toolbar;
-    private TextView topArticles;
-    private TextView favArticles;
+    public TextView topArticles;
+    public TextView favArticles;
 
     /**
      * Holds items that are extracted from the CBC website.
@@ -64,7 +68,7 @@ public class NewsActivity extends AppCompatActivity {
      * Holds items that are saved in the database.
      */
     private ArrayList<String> savedNewsTitles, savedNewsUrl, savedNewsDescription, savedNewsDate;
-    private ArrayList<Bitmap> savedNewsPhotoPath;
+    public ArrayList<Bitmap> savedNewsPhotoPath;
 
     /**
      * Puts items in an ExpandableListView.
@@ -83,9 +87,22 @@ public class NewsActivity extends AppCompatActivity {
     private int counter;
 
     /**
+     * Items related to Fragments
+     */
+    public boolean inStatsFragment = false;
+    private Fragment statsFragment;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+
+    /**
      * Used to look through database.
      */
     private Cursor result;
+
+    /**
+     * True if the top news listview is visible.
+     */
+    public boolean topNewsVisible;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -117,6 +134,7 @@ public class NewsActivity extends AppCompatActivity {
         savedListView = findViewById(R.id.saved_list);
 
         updateSavedList();
+
     }
 
     /**
@@ -165,7 +183,7 @@ public class NewsActivity extends AppCompatActivity {
     private void createToolBar(){
         toolbar = (Toolbar) findViewById(R.id.news_toolbar);
         toolbar.setTitle(R.string.news_reader);
-        toolbar.setBackgroundColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
     }
 
@@ -186,25 +204,30 @@ public class NewsActivity extends AppCompatActivity {
      */
     public boolean onOptionsItemSelected(MenuItem mi){
         topArticles = (TextView) findViewById(R.id.top_articles);
-        topArticles.setBackgroundColor(Color.LTGRAY);
         favArticles = (TextView) findViewById(R.id.favorite_articles);
         switch (mi.getItemId()){
             case R.id.top_articles:
-                Log.d("Toolbar","Top articles selected");
-                savedListView.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
-                topArticles.setBackgroundColor(Color.LTGRAY);
-                favArticles.setBackgroundColor(Color.WHITE);
-                Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.top_articles,Snackbar.LENGTH_LONG).show();
+                if (!inStatsFragment){
+                    Log.d("Toolbar","Top articles selected");
+                    savedListView.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                    topArticles.setBackgroundColor(Color.RED);
+                    favArticles.setBackgroundColor(Color.TRANSPARENT);
+                    Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.top_articles,Snackbar.LENGTH_LONG).show();
+                    topNewsVisible = true;
+                }
                 break;
             case R.id.favorite_articles:
-                Log.d("Toolbar","Favorite articles selected");
-                listView.setVisibility(View.GONE);
-                savedListView.setVisibility(View.VISIBLE);
-                topArticles.setBackgroundColor(Color.WHITE);
-                favArticles.setBackgroundColor(Color.LTGRAY);
-                updateSavedList();
-                Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.saved_articles,Snackbar.LENGTH_LONG).show();
+                if (!inStatsFragment){
+                    Log.d("Toolbar","Favorite articles selected");
+                    listView.setVisibility(View.GONE);
+                    savedListView.setVisibility(View.VISIBLE);
+                    topArticles.setBackgroundColor(Color.TRANSPARENT);
+                    favArticles.setBackgroundColor(Color.RED);
+                    updateSavedList();
+                    Snackbar.make(findViewById(R.id.snackbar_text_holder),R.string.saved_articles,Snackbar.LENGTH_LONG).show();
+                    topNewsVisible = false;
+                }
                 break;
             case R.id.help:
                 AlertDialog.Builder builder = new AlertDialog.Builder((this));
@@ -219,6 +242,20 @@ public class NewsActivity extends AppCompatActivity {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                break;
+            case R.id.info:
+                if (!inStatsFragment){
+                    listView.setVisibility(View.GONE);
+                    savedListView.setVisibility(View.GONE);
+                    inStatsFragment = true;
+                    listView.setVisibility(View.GONE);
+                    topArticles.setBackgroundColor(Color.TRANSPARENT);
+                    favArticles.setBackgroundColor(Color.TRANSPARENT);
+                    statsFragment = new NewsStatsFragment();
+                    fragmentManager = this.getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.activity_news,statsFragment).commit();
+                }
                 break;
         }
         return true;
@@ -389,7 +426,7 @@ public class NewsActivity extends AppCompatActivity {
         public void onPostExecute(String result){
             //Default selected Menu in toolbar
             topArticles = (TextView) findViewById(R.id.top_articles);
-            topArticles.setBackgroundColor(Color.LTGRAY);
+            topArticles.setBackgroundColor(Color.RED);
 
             listView = findViewById(R.id.newsList);
 

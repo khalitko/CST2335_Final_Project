@@ -21,12 +21,21 @@
                         \n\t\t\t Cliquez sur l\'étoile jaune avec un + pour
                         \n\t\t\t sauvegarder l\'article</string>
     <string name="news_dialog_ok">D\'accord</string>
+    <string name="news_info">Info</string>
 
     <!-- Toast and Snackbars -->
     <string name="article_removed">Article de presse enlevé</string>
     <string name="news_error">Une erreur est survenue</string>
     <string name="article_saved">Article de presse enregistré</string>
     <string name="article_already_saved">Article de presse déjà enregistré</string>
+
+    <!-- Statistics Fragment -->
+    <string name="news_stats">Statistiques</string>
+    <string name="news_return">Revenir</string>
+    <string name="article_count">Nombre de nouvelles sauvegardées:</string>
+    <string name="average_words">Nombre moyen de mots:</string>
+    <string name="max_words">Nombre maximum de mots:</string>
+    <string name="min_words">Nombre mimimum de mots:</string>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 </resources>

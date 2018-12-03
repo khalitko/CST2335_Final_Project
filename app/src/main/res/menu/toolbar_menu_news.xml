@@ -21,4 +21,9 @@
         android:icon="@drawable/news_help"
         />
 
+    <item android:id="@+id/info"
+        android:title="@string/news_info"
+        android:orderInCategory="4"
+        app:showAsAction="never"/>
+
 </menu>
