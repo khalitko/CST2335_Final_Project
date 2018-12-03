@@ -47,9 +47,8 @@
     <string name="addedMovieToDB">" has been added to your Favourites!"</string>
     <string name="alreadyAddedMovieToDB">" is already in your Favourites!</string>
     <string name="movieStatsBtn">Statistics</string>
-
-    <!--Not Used -->
-    <string name="recentSearchHintNone">"Recent: no recent searches :("</string>
-    <string name="movieListViewBuilderTitle">What </string>
+    <string name="statsDisplay1"><u>"Shortest Movie Runtime: "</u></string>
+    <string name="statsDisplay2"><u>"\n\nLongest Movie Runtime: "</u></string>
+    <string name="statsDisplay3"><u>"\n\nAverage Movie Runtime: "</u></string>
 
 </resources>

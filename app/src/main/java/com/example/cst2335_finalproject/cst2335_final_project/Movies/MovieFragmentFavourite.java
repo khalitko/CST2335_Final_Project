@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
@@ -32,6 +33,7 @@ import static com.example.cst2335_finalproject.cst2335_final_project.Movies.Movi
 public class MovieFragmentFavourite extends Fragment {
 
     private ListView favListView;
+    private Button statisticsBtn;
     //for Database
     private Cursor c;
     //private MovieDatabaseHelper databaseHelper;
@@ -50,6 +52,7 @@ public class MovieFragmentFavourite extends Fragment {
         //databaseHelper = ((MovieActivity)getActivity()).getDatabaseHelper();
         db = ((MovieActivity)getActivity()).getDb();
 
+        statisticsBtn = screen.findViewById(R.id.movieStatisticsBtn);
         favListView = screen.findViewById(R.id.favouriteMovieList);
         movieDatabaseHeaders = new String[]{MovieDatabaseHelper.KEY_TITLE, MovieDatabaseHelper.KEY_RELEASED, MovieDatabaseHelper.KEY_RATING,
                 MovieDatabaseHelper.KEY_RUNTIME};
@@ -91,6 +94,48 @@ public class MovieFragmentFavourite extends Fragment {
 
             }
         });
+
+        statisticsBtn.setOnClickListener((v -> {
+            int shortestRun = 14401 //the longest movie ever is 14'400 min.
+                    , longestRun = 0, averageRun = 0;
+            //int sixitiesMinus, seventies, eighties, nineties, twoThousands, twentytens;
+            String runtimeStringActive;
+            int runtimeIntActive;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            c = db.rawQuery("SELECT "+MovieDatabaseHelper.KEY_RUNTIME+" FROM "+ MovieDatabaseHelper.DATABASE_NAME, null);
+            try {
+                while (c.moveToNext()){
+                    runtimeStringActive = c.getString(c.getColumnIndex(MovieDatabaseHelper.KEY_RUNTIME));
+                    String justTime = runtimeStringActive.replaceAll(" min", "");
+                    runtimeIntActive = Integer.parseInt(justTime);
+                    averageRun += runtimeIntActive;
+                    if (runtimeIntActive < shortestRun) {shortestRun = runtimeIntActive;}
+                    if (runtimeIntActive > longestRun) {longestRun = runtimeIntActive;}
+                }
+            } finally {
+                averageRun = averageRun / c.getCount();
+                c.close();
+            }
+
+            builder.setTitle(R.string.movieStatsBtn);
+            String message = getContext().getString(R.string.statsDisplay1)+
+                    Integer.toString(shortestRun)+" min"+
+                    getContext().getString(R.string.statsDisplay2)+
+                    Integer.toString(longestRun)+" min"+
+                    getContext().getString(R.string.statsDisplay3)+
+                    Integer.toString(averageRun)+" min";
+            builder.setMessage(message);
+            builder.setNegativeButton(R.string.BtnOkay, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int i) {
+                    // User cancelled the dialog //
+                    // THEN DO NOTHING //
+                }
+            });
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }));
 
         return screen;
     }
