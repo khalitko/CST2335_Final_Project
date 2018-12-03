@@ -1,10 +1,15 @@
 package com.example.cst2335_finalproject.cst2335_final_project.Movies;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
@@ -37,6 +43,7 @@ public class MovieFragmentDisplay extends Fragment {
     private Button doneBtn;
     private ImageButton addFavsBtn;
 
+    private String movieTitle, movieRelease, movieRating, movieRuntime, moviePlot, movieStarring, posterIcon;
     private ImageView posterDisplay;
     private TextView titleDisplay, releaseDisplay, ratingDisplay, runtimeDisplay, plotDisplay, starringDisplay;
 
@@ -44,6 +51,10 @@ public class MovieFragmentDisplay extends Fragment {
     private String movieURL, fetchURL;
     private URL movieWebsite, posterURL;
     private HttpURLConnection movieConnection, moviePosterConnnection;
+
+    private ContentValues cValues = new ContentValues();
+    private Cursor c;
+    private SQLiteDatabase db;
 
     public MovieFragmentDisplay(){}
 
@@ -70,6 +81,37 @@ public class MovieFragmentDisplay extends Fragment {
             ((MovieActivity)getActivity()).toMovieMain();
         }));
 
+        addFavsBtn.setOnClickListener((v -> {
+
+            db = ((MovieActivity)getActivity()).getDb();
+
+            c = db.rawQuery("SELECT "+MovieDatabaseHelper.KEY_TITLE+" FROM "+ MovieDatabaseHelper.DATABASE_NAME+" WHERE "+
+                    MovieDatabaseHelper.KEY_TITLE+"=?", new String[]{movieTitle});
+
+            c.moveToFirst();
+            String movieTitleToTest = "";
+            if(c!=null && c.getCount()>0) {
+                movieTitleToTest = c.getString(c.getColumnIndex(MovieDatabaseHelper.KEY_TITLE));
+            }
+
+            if (movieTitleToTest.equals(movieTitle)){
+                Toast toast = Toast.makeText(getContext(), movieTitle + getString(R.string.alreadyAddedMovieToDB), Toast.LENGTH_SHORT);
+                toast.show(); //display your message box
+            }else {
+                cValues.put(MovieDatabaseHelper.KEY_TITLE, movieTitle);
+                cValues.put(MovieDatabaseHelper.KEY_RELEASED, movieRelease);
+                cValues.put(MovieDatabaseHelper.KEY_RATING, movieRating);
+                cValues.put(MovieDatabaseHelper.KEY_RUNTIME, movieRuntime);
+                cValues.put(MovieDatabaseHelper.KEY_PLOT, moviePlot);
+                cValues.put(MovieDatabaseHelper.KEY_STARRING, movieStarring);
+
+                db.insert(MovieDatabaseHelper.DATABASE_NAME, null, cValues);
+
+                Toast toast = Toast.makeText(getContext(), movieTitle + getString(R.string.addedMovieToDB), Toast.LENGTH_SHORT);
+                toast.show(); //display your message box
+            }
+        }));
+
 
         if (bundle != null) {
             movieURL = bundle.getString("Title", "UTF-8");
@@ -90,7 +132,6 @@ public class MovieFragmentDisplay extends Fragment {
 
     public class MovieQuery extends AsyncTask<String, Integer, String> {
 
-        private String movieTitle, movieRelease, movieRating, movieRuntime, moviePlot, movieStarring, posterIcon;
         private Bitmap moviePoster;
         private int responseCode;
 

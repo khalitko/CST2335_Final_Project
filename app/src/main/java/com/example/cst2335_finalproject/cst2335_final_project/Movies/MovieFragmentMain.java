@@ -14,7 +14,7 @@ import com.example.cst2335_finalproject.cst2335_final_project.R;
 public class MovieFragmentMain extends Fragment {
 
     MovieActivity parent = new MovieActivity();
-    private Button searchMovieBtn;
+    private Button searchMovieBtn, favouritesMovieBtn;
     private EditText enteredMovieTitle;
 
     public MovieFragmentMain(){}
@@ -26,9 +26,14 @@ public class MovieFragmentMain extends Fragment {
 
         searchMovieBtn = screen.findViewById(R.id.queryMovieBtn);
         enteredMovieTitle = screen.findViewById(R.id.movieToQueryEt);
+        favouritesMovieBtn = screen.findViewById(R.id.mainMovieFavButton);
 
         searchMovieBtn.setOnClickListener((v -> {
             ((MovieActivity)getActivity()).searchForAMovie(enteredMovieTitle.getText().toString());
+        }));
+
+        favouritesMovieBtn.setOnClickListener((v -> {
+            ((MovieActivity)getActivity()).toMovieFavourites();
         }));
 
         return screen;

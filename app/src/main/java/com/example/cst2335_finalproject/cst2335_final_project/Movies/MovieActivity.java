@@ -2,6 +2,7 @@ package com.example.cst2335_finalproject.cst2335_final_project.Movies;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -23,6 +24,10 @@ public class MovieActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "MovieActivity";
     private boolean inHomeScreen;
 
+    //for the database
+    private MovieDatabaseHelper databaseHelper;
+    private SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,10 @@ public class MovieActivity extends AppCompatActivity {
         Toolbar movieBar = findViewById(R.id.movieBar);
         setSupportActionBar(movieBar);
         if (getActionBar() != null) getActionBar().setDisplayShowTitleEnabled(true);
+
+        //For database
+        databaseHelper = new MovieDatabaseHelper(this);
+        db = databaseHelper.getWritableDatabase();
 
         toMovieMain();
     }
@@ -48,7 +57,7 @@ public class MovieActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_one_favourites:
                 Log.d("Toolbar", "Action_One [Favourites] Selected");
-
+                toMovieFavourites();
                 break;
 
             case R.id.action_two_home:
@@ -80,7 +89,6 @@ public class MovieActivity extends AppCompatActivity {
     public void searchForAMovie(String movieTitle){
         Bundle infoToPass = new Bundle();
         infoToPass.putString("Title", movieTitle);
-
         inHomeScreen = false;
 
         MovieFragmentDisplay movieFragmentDisplay = new MovieFragmentDisplay();
@@ -93,11 +101,32 @@ public class MovieActivity extends AppCompatActivity {
 
     public void toMovieMain(){
         MovieFragmentMain movieFragmentMain = new MovieFragmentMain();
-
         inHomeScreen = true;
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fTrans = fm.beginTransaction();
         fTrans.replace(R.id.movieFrameLayout, movieFragmentMain)
                 .commit();
+    }
+
+    public void toMovieFavourites(){
+        inHomeScreen = false;
+
+        MovieFragmentFavourite movieFragmentFavourite = new MovieFragmentFavourite();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fTrans = fm.beginTransaction();
+        fTrans.replace(R.id.movieFrameLayout, movieFragmentFavourite)
+                .commit();
+    }
+
+    //Getters for the database helper objects.
+    public MovieDatabaseHelper getDatabaseHelper() {return databaseHelper;}
+    public SQLiteDatabase getDb() {return db;}
+
+    @Override
+    protected void onDestroy(){
+        db.close();
+        super.onDestroy();
+        Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 }
