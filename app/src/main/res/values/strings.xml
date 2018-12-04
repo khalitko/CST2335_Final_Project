@@ -50,5 +50,6 @@
     <string name="statsDisplay1"><u>"Shortest Movie Runtime: "</u></string>
     <string name="statsDisplay2"><u>"\n\nLongest Movie Runtime: "</u></string>
     <string name="statsDisplay3"><u>"\n\nAverage Movie Runtime: "</u></string>
+    <string name="movieErrorQuery">Error: No movie found with that title!</string>
 
 </resources>

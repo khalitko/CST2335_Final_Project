@@ -42,7 +42,7 @@ public class MovieActivity extends AppCompatActivity {
         databaseHelper = new MovieDatabaseHelper(this);
         db = databaseHelper.getWritableDatabase();
 
-        toMovieMain();
+        toMovieMain(false);
     }
 
     @Override
@@ -55,18 +55,19 @@ public class MovieActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem mi){
         int id = mi.getItemId();
         switch (id){
-            case R.id.action_one_favourites:
-                Log.d("Toolbar", "Action_One [Favourites] Selected");
-                toMovieFavourites();
-                break;
-
-            case R.id.action_two_home:
-                Log.d("Toolbar", "Action_Two [Home] Selected");
+            case R.id.action_one_home:
+                Log.d("Toolbar", "Action_One [Home] Selected");
                 if (inHomeScreen) {
                     Intent resultIntent = new Intent();
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
-                } else {  toMovieMain();  }
+                } else {  toMovieMain(false);  }
+
+                break;
+
+            case R.id.action_two_favourties:
+                Log.d("Toolbar", "Action_Two [Favourites] Selected");
+                toMovieFavourites();
                 break;
 
             case R.id.action_three_help:
@@ -99,12 +100,15 @@ public class MovieActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void toMovieMain(){
+    public void toMovieMain(Boolean error){
         MovieFragmentMain movieFragmentMain = new MovieFragmentMain();
         inHomeScreen = true;
+        Bundle infoToPass = new Bundle();
+        infoToPass.putBoolean("Error", error);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fTrans = fm.beginTransaction();
+        movieFragmentMain.setArguments(infoToPass);
         fTrans.replace(R.id.movieFrameLayout, movieFragmentMain)
                 .commit();
     }

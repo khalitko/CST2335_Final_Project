@@ -78,7 +78,7 @@ public class MovieFragmentDisplay extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         doneBtn.setOnClickListener((v -> {
-            ((MovieActivity)getActivity()).toMovieMain();
+            ((MovieActivity)getActivity()).toMovieMain(false);
         }));
 
         addFavsBtn.setOnClickListener((v -> {
@@ -227,25 +227,27 @@ public class MovieFragmentDisplay extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (result!=null) {
-                String concat;
-                concat = getString(R.string.movieDisplayTitle) + movieTitle;
+            if (movieTitle!=null){
+                if (result!=null) {
+                    String concat;
+                    concat = getString(R.string.movieDisplayTitle) + movieTitle;
                     titleDisplay.setText(concat);
-                concat = getString(R.string.movieDisplayRelease) + movieRelease;
+                    concat = getString(R.string.movieDisplayRelease) + movieRelease;
                     releaseDisplay.setText(concat);
-                concat = getString(R.string.movieDisplayRating) + movieRating;
+                    concat = getString(R.string.movieDisplayRating) + movieRating;
                     ratingDisplay.setText(concat);
-                concat = getString(R.string.movieDisplayRuntime) + movieRuntime;
+                    concat = getString(R.string.movieDisplayRuntime) + movieRuntime;
                     runtimeDisplay.setText(concat);
-                concat = getString(R.string.movieDisplayPlot) + moviePlot;
+                    concat = getString(R.string.movieDisplayPlot) + moviePlot;
                     plotDisplay.setText(concat);
-                concat = getString(R.string.movieDisplayStarring) + movieStarring;
+                    concat = getString(R.string.movieDisplayStarring) + movieStarring;
                     starringDisplay.setText(concat);
 
-                posterDisplay.setImageBitmap(moviePoster);
+                    posterDisplay.setImageBitmap(moviePoster);
 
-                progressBar.setVisibility(View.INVISIBLE);
-            }
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            } else {((MovieActivity)getActivity()).toMovieMain(true);}
         }
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
@@ -16,6 +17,7 @@ public class MovieFragmentMain extends Fragment {
     MovieActivity parent = new MovieActivity();
     private Button searchMovieBtn, favouritesMovieBtn;
     private EditText enteredMovieTitle;
+    private TextView errorMessage;
 
     public MovieFragmentMain(){}
 
@@ -27,6 +29,11 @@ public class MovieFragmentMain extends Fragment {
         searchMovieBtn = screen.findViewById(R.id.queryMovieBtn);
         enteredMovieTitle = screen.findViewById(R.id.movieToQueryEt);
         favouritesMovieBtn = screen.findViewById(R.id.mainMovieFavButton);
+        errorMessage = screen.findViewById(R.id.errorInQueryTxt);
+
+        boolean error = bundle.getBoolean("Error");
+        if (error) {errorMessage.setVisibility(View.VISIBLE);}
+        else {errorMessage.setVisibility(View.INVISIBLE);}
 
         searchMovieBtn.setOnClickListener((v -> {
             ((MovieActivity)getActivity()).searchForAMovie(enteredMovieTitle.getText().toString());

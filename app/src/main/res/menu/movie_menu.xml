@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <item android:id="@+id/action_one_favourites"
-        android:title="@string/iconFavourites"
-        android:icon="@drawable/icon_movie_favs"
+    <item android:id="@+id/action_one_home"
+        android:title="@string/iconHome"
+        android:icon="@drawable/icon_movie_home"
         android:orderInCategory="101"
         app:showAsAction="ifRoom"
         />
 
-    <item android:id="@+id/action_two_home"
-        android:title="@string/iconHome"
-        android:icon="@drawable/icon_movie_home"
+    <item android:id="@+id/action_two_favourties"
+
+        android:title="@string/iconFavourites"
+        android:icon="@drawable/icon_movie_favs"
         android:orderInCategory="102"
         app:showAsAction="ifRoom"
         />
