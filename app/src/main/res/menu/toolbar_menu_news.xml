@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/top_articles"
+        android:title="Choice 1"
+        android:icon="@drawable/news_top_articles"
+        android:orderInCategory="1"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/favorite_articles"
+        android:title="Choice 2"
+        android:icon="@drawable/news_favorites"
+        android:orderInCategory="2"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/help"
+        android:title="@string/news_help"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        android:icon="@drawable/news_help"
+        />
+
+    <item android:id="@+id/info"
+        android:title="@string/news_info"
+        android:orderInCategory="4"
+        app:showAsAction="never"/>
+
+</menu>

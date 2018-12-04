@@ -20,13 +20,17 @@ public class MainScreen extends Activity {
         public void foodClick (View view){
             startActivity(new Intent(this, FoodActivity.class));
 
-        }
+    public void newsButton(View view) {
+        Intent intent = new Intent(MainScreen.this, NewsActivity.class);
+        startActivity(intent);
+    }
 
+        /*
         public void newsButton (View view){
 
             startActivity(new Intent(this, NewsActivity.class));
         }
-
+        */
         public void movieButton (View view){
 
             startActivity(new Intent(this, MovieActivity.class));
@@ -38,4 +42,3 @@ public class MainScreen extends Activity {
         }
 
 }
-

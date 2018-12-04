@@ -17,14 +17,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".Food.FoodActivity"></activity>
         <activity android:name=".BusActivity"></activity>
         <activity android:name=".Movies.MovieActivity"></activity>
         <activity android:name=".NewsActivity"></activity>
         <activity android:name=".Food.FoodFavorites"></activity>
-
     </application>
 
 </manifest>

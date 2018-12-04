@@ -22,6 +22,40 @@
     <string name="favoritesList">Favorites List</string>
     <string name="jsonDL">Json Data is downloading</string>
 
+    <!-- News Section Strings [Umber Setia] -->
+    <string name="news_reader">CBC News Reader</string>
+
+        <!-- Toolbar and items -->
+    <string name="saved_articles">Saved Articles</string>
+    <string name="top_articles">Top Articles</string>
+    <string name="read_more_news"><u>Read More</u></string>
+    <string name="news_help">Help</string>
+    <string name="news_toolbar_help"> Author: Umber Setia
+                        \n Version: 2018-12-03
+                        \n Instructions:
+                        \n\t\t\t Click pages icon to view top articles.
+                        \n\t\t\t Click plain yellow star to view your
+                        \n\t\t\t saved articles.
+                        \n\t\t\t Click on an article to see the description.
+                        \n\t\t\t Click the yellow star with a + in it to save
+                        \n\t\t\t the article</string>
+    <string name="news_dialog_ok">OK</string>
+    <string name="news_info">Info</string>
+
+        <!-- Toast and Snackbars -->
+    <string name="article_removed">Article removed</string>
+    <string name="news_error">An error occurred</string>
+    <string name="article_saved">Article saved</string>
+    <string name="article_already_saved">Article already saved</string>
+
+    <!-- Statistics Fragment -->
+    <string name="news_stats">Statistics</string>
+    <string name="news_return">Return</string>
+    <string name="article_count">Number of saved articles:</string>
+    <string name="average_words">Average word count:</string>
+    <string name="max_words">Max word count:</string>
+    <string name="min_words">Min word count:</string>
+
 
     <!-- Movie Section Strings [Dylan McCarthy] -->
     <string name="movieFavouriteText"><u>Your Favourite Movies:</u></string>
