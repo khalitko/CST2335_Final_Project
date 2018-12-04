@@ -1,35 +1,30 @@
 package com.example.cst2335_finalproject.cst2335_final_project.Movies;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
-import android.widget.ListAdapter;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-
-import static com.example.cst2335_finalproject.cst2335_final_project.Movies.MovieActivity.ACTIVITY_NAME;
-
+/**
+ * The favourites fragment displays the listview full of all the movies placed into the favourites
+ * database, and allows the user to easily view a movie again, or remove it from their list.
+ * The user can also use this fragment to view statistics on the collection of their favourite films.
+ *
+ * @author Dylan McCarthy
+ * @version 1.0
+ */
 public class MovieFragmentFavourite extends Fragment {
 
     private ListView favListView;
@@ -42,8 +37,23 @@ public class MovieFragmentFavourite extends Fragment {
     private int[] movieLayoutComponents;
     SimpleCursorAdapter adapter;
 
+    /**
+     * default constructor for the MovieFragmentFavourite class.
+     */
     public MovieFragmentFavourite(){}
 
+    /**
+     * onCreateView is similar to the on create on an activity accept it is called only when a new
+     * view is declared, such as the fragment Favourite we're calling here. Inside, all of our variables
+     * and layout objects are initialized.
+     *
+     * @param inflater              a reference to the activity inflater so the fragment can be
+     *                              inflated.
+     * @param container             a reference to the viewGroup passed from the activity.
+     * @param  savedInstanceState   a reference to the bundle object passed into MovieActivity
+     *                              from MainScreen.
+     * @return screen               returns the View created and inflated here.
+     */
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -140,6 +150,11 @@ public class MovieFragmentFavourite extends Fragment {
         return screen;
     }
 
+    /**
+     * This is a helper method to load the data we have saved into the database into the
+     * favourites list view for the user to see. This is called onViewCreate, as well as after
+     * an item is deleted from database.
+     * */
     private void loadListView(){
         c = db.rawQuery("SELECT * FROM "+ MovieDatabaseHelper.DATABASE_NAME, null);
 

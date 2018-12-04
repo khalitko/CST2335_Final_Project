@@ -6,10 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,10 +31,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * The Display fragment is where we perform the query on the OMDb api using the title that was passed
+ * here by the main fragment through movie activity. As well, all the displayed information can also
+ * be saved to the database from here, and by extension the favourites list.
+ *
+ * @author Dylan McCarthy
+ * @version 1.0
+ */
 public class MovieFragmentDisplay extends Fragment {
 
     private ProgressBar progressBar;
@@ -56,8 +61,23 @@ public class MovieFragmentDisplay extends Fragment {
     private Cursor c;
     private SQLiteDatabase db;
 
+    /**
+     * default constructor for the MovieFragmentDisplay class.
+     */
     public MovieFragmentDisplay(){}
 
+    /**
+     * onCreateView is similar to the on create on an activity accept it is called only when a new
+     * view is declared, such as the fragment display we're calling here. Inside, all of our variables
+     * and layout objects are initialized.
+     *
+     * @param inflater              a reference to the activity inflater so the fragment can be
+     *                              inflated.
+     * @param container             a reference to the viewGroup passed from the activity.
+     * @param  savedInstanceState   a reference to the bundle object passed into MovieActivity
+     *                              from MainScreen.
+     * @return screen               returns the View created and inflated here.
+     */
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -130,11 +150,26 @@ public class MovieFragmentDisplay extends Fragment {
         return screen;
     }
 
+    /**
+     * Movie query is a helper class that allows us to query movies from the api, using the methods
+     * inherited from the AsyncTask such as doInBackground allow us to load items from the query
+     * without freezing out the user.
+     *
+     * @author Dylan McCarthy
+     * @version 1.0
+     */
     public class MovieQuery extends AsyncTask<String, Integer, String> {
 
         private Bitmap moviePoster;
         private int responseCode;
 
+        /**
+         * doInBackground is a java Function that helps us perform tasks, in this case, reading the
+         * items from the xml data. without freezing out the user, or their device.
+         *
+         * @param args           passes in an array of string parameters.
+         * @return               returns nothing.
+         */
         @Override
         protected String doInBackground(String... args) {
             try {
@@ -213,17 +248,36 @@ public class MovieFragmentDisplay extends Fragment {
             return "";
         }
 
+        /**
+         *  checks to see if a file with the passed string name exists already within the phone.
+         *
+         * @param fileName      the name of the file to check its existence.
+         * @return              true or false depending on whether the file is found.
+         */
         private boolean fileExistence(String fileName){
             File file = getContext().getFileStreamPath(fileName);
             return file.exists();
         }
 
+        /**
+         * onProgress is a method that updates the 'loading' of progress bars, incrementing it
+         * as necessary when called.
+         *
+         * @param args      passes in an array of Integer parameters
+         */
         @Override
         protected void onProgressUpdate(Integer... args) {
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setProgress(args[0]);
         }
 
+        /**
+         * onPostExecute is called when the AsyncTask finishes executing, and is used for anything
+         * that required your AsyncTask, here, it is used to assign the fetched variables names to
+         * the layouts defined in the fragment.
+         *
+         * @param result      a string containing the results of the AsyncTask.
+         */
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
