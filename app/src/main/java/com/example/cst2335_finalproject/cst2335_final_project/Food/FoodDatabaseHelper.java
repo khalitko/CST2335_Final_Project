@@ -14,14 +14,15 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final String ACTIVITY_NAME = "FoodDatabaseHelper";
     static String DATABASE_NAME = "Favorites.db";
-    static int VERSION_NUM = 1;
+    static int VERSION_NUM = 7;
     final static String KEY_ID = "_id";
     final static String KEY_LABEL = "Label";
     final static String KEY_CALORIES = "Calories";
     final static String KEY_FAT = "Fat";
     final static String KEY_CARBS = "Carbs";
     final static String TABLE_NAME = "Favorites";
-    final static String creatTable = "CREATE TABLE " + TABLE_NAME +"("+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "+ KEY_LABEL +" TEXT NOT NULL, "+ KEY_CALORIES +" TEXT NOT NULL, "+ KEY_FAT +" TEXT NOT NULL, " + KEY_CARBS +  " TEXT NOT NULL);";
+    final static String KEY_TAG = "Tag";
+    final static String creatTable = "CREATE TABLE " + TABLE_NAME +"("+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "+ KEY_LABEL +" TEXT NOT NULL, "+ KEY_CALORIES +" numeric, "+ KEY_FAT +" numeric, " + KEY_CARBS +" numeric, " + KEY_TAG +  " TEXT NOT NULL);";
 
 
     /**

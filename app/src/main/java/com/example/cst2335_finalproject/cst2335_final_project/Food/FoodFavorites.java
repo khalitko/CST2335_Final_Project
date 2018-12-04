@@ -4,6 +4,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.View;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
@@ -27,4 +29,5 @@ public class FoodFavorites extends AppCompatActivity {
         ftrans.replace(R.id.favorites,newFragment); //load a fragment into the framelayout
         ftrans.commit(); //actually load it
     }
+
 }

@@ -12,6 +12,11 @@
         android:icon="@drawable/ic_favorite"
         app:showAsAction="always"
         android:title="favorties" />
+    <item
+        android:id="@+id/action_tag"
+        android:icon="@drawable/ic_tag"
+        app:showAsAction="always"
+        android:title="Tag" />
 
     <item
         android:id="@+id/action_help"

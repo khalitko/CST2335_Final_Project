@@ -24,6 +24,7 @@
         <activity android:name=".MovieActivity"></activity>
         <activity android:name=".NewsActivity"></activity>
         <activity android:name=".Food.FoodFavorites"></activity>
+        <activity android:name=".Food.SearchTag"></activity>
 
     </application>
 
