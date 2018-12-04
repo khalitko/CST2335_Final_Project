@@ -27,10 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:contentDescription="@string/Main_NewsButton"
         android:onClick="newsButton"
         android:src="@drawable/newspaper"
-       />
+        />
+        <!-- android:contentDescription="@string/Main_NewsButton" -->
+
 
     <ImageButton
         android:id="@+id/imageButton2"
