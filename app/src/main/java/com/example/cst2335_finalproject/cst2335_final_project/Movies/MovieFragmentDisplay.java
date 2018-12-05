@@ -34,6 +34,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * The Display fragment is where we perform the query on the OMDb api using the title that was passed
  * here by the main fragment through movie activity. As well, all the displayed information can also
@@ -52,10 +54,10 @@ public class MovieFragmentDisplay extends Fragment {
     private ImageView posterDisplay;
     private TextView titleDisplay, releaseDisplay, ratingDisplay, runtimeDisplay, plotDisplay, starringDisplay;
 
-    private static String movieURLBase = "http://www.omdbapi.com/?apikey=61355fe7&r=xml&t=";
+    private static String movieURLBase = "https://www.omdbapi.com/?apikey=61355fe7&r=xml&t=";
     private String movieURL, fetchURL;
     private URL movieWebsite, posterURL;
-    private HttpURLConnection movieConnection, moviePosterConnnection;
+    private HttpsURLConnection movieConnection, moviePosterConnnection;
 
     private ContentValues cValues = new ContentValues();
     private Cursor c;
@@ -176,7 +178,7 @@ public class MovieFragmentDisplay extends Fragment {
                 //FIRST CONNECT TO SERVER.
                     //movieURL = URLEncoder.encode(bundle.getString("Title"), "UTF-8");
                 movieWebsite = new URL(movieURLBase + URLEncoder.encode(movieURL));
-                movieConnection = (HttpURLConnection) movieWebsite.openConnection();
+                movieConnection = (HttpsURLConnection) movieWebsite.openConnection();
                 InputStream response = movieConnection.getInputStream();
 
                 //READ THE XML
@@ -216,9 +218,9 @@ public class MovieFragmentDisplay extends Fragment {
                     xpp.next();
                 }
                 //Build the URL
-                URLEncoder.encode(posterIcon, "UTF-8");
+                //URLEncoder.encode(posterIcon, "UTF-8");
                 posterURL = new URL(posterIcon);
-                moviePosterConnnection = (HttpURLConnection) posterURL.openConnection();
+                moviePosterConnnection = (HttpsURLConnection) posterURL.openConnection();
 
                 //FETCH THE PICTURE
                 responseCode = moviePosterConnnection.getResponseCode();
