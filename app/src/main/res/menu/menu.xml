@@ -27,12 +27,12 @@
         android:id="@+id/action_help"
         android:icon="@drawable/ic_help"
         app:showAsAction="never"
-        android:title="Help" />
+        android:title="@string/Help" />
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:icon="@drawable/action_settings"
         app:showAsAction="never"
-        android:title="Settings" />
+        android:title="@string/Settings" />
 </menu>

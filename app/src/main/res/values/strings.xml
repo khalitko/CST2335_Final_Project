@@ -24,5 +24,7 @@
     <string name="jsonDL">Json Data is downloading</string>
     <string name="Home">Home</string>
     <string name="SearchTag">Search Tag</string>
+    <string name="Settings">Settings</string>
+
 
 </resources>
