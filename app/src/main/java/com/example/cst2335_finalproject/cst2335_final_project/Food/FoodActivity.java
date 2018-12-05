@@ -25,6 +25,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cst2335_finalproject.cst2335_final_project.R;
@@ -52,8 +53,10 @@ public class FoodActivity extends AppCompatActivity {
     ProgressBar progress;
     Toolbar favorite;
     String search, label, calorieValue, fatValue, carbValue;
+    String[] tagValue;
     FoodDatabaseHelper dbHelper;
     SQLiteDatabase db;
+    String str;
     ArrayList<String[]> foods = new ArrayList<>();
     ArrayList<HashMap<String, String>> foodItemList;
 
@@ -91,10 +94,44 @@ public class FoodActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FoodActivity.this)
-                        .setMessage("Do you want to add this to favourites").setTitle("Save")
-                        .setCancelable(true)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(FoodActivity.this);
+//                dialogBuilder.setMessage("Select a tag and add to favourites");
+                dialogBuilder.setTitle("Select a tag and add to favourites");
+//                        .setCancelable(true);
+                String[] tagValue = {"BreakFast", "Lunch", "Dinner"};
+
+                dialogBuilder.setSingleChoiceItems(tagValue, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch (which) {
+
+                            case 0:
+                                TextView bf = (TextView) findViewById(R.id.tagV);
+                                str = bf.getText().toString();
+                                str = str.replace("","Breakfast");
+                                bf.setText(str);
+                                break;
+                            case 1:
+
+                                TextView l = (TextView) findViewById(R.id.tagV);
+                                str = l.getText().toString();
+                                str = str.replace("","Lunch");
+                                l.setText(str);
+                                break;
+                            case 2:
+                                TextView d = (TextView) findViewById(R.id.tagV);
+                                str = d.getText().toString();
+                                str = str.replace("","Dinner");
+                                d.setText(str);
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                });
+                dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -115,17 +152,18 @@ public class FoodActivity extends AppCompatActivity {
                                 cValues.put(FoodDatabaseHelper.KEY_CALORIES,strArr[1]);
                                 cValues.put(FoodDatabaseHelper.KEY_FAT,strArr[2]);
                                 cValues.put(FoodDatabaseHelper.KEY_CARBS,strArr[3]);
+                                cValues.put(FoodDatabaseHelper.KEY_TAG, str);
                                 db.insert(FoodDatabaseHelper.TABLE_NAME,"NullColumnName",cValues);
                                 Toast toast = Toast.makeText(getApplicationContext(),R.string.Saved, Toast.LENGTH_LONG);
                                 toast.show();
                             }
-                        })
-                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        });
+                dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
                         });
-
-                dialogBuilder.show();
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.show();
             }
         });
     }
@@ -149,6 +187,10 @@ public class FoodActivity extends AppCompatActivity {
 
         if (id == R.id.action_favorite) {
             Intent intent = new Intent(FoodActivity.this, FoodFavorites.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_tag) {
+            Intent intent = new Intent(this, SearchTag.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.search) {
@@ -232,6 +274,7 @@ public class FoodActivity extends AppCompatActivity {
                         food.put("Fat", "Fat: " + fatValue + "g");
                         food.put("Carbs", "Carb: " + carbValue+ "g");
 
+
                         foodItemList.add(food);
 
                     } catch (JSONException e) {
@@ -262,8 +305,8 @@ public class FoodActivity extends AppCompatActivity {
                 toast.show();
             }else{
                 ListAdapter adapter = new SimpleAdapter(FoodActivity.this, foodItemList,
-                        R.layout.food_info, new String[]{ "Label","Calories", "Fat", "Carbs"},
-                        new int[]{R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV});
+                        R.layout.food_info, new String[]{ "Label","Calories", "Fat", "Carbs", "Tag"},
+                        new int[]{R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV, R.id.tagV});
                 list.setAdapter(adapter);
             }
             progress.setVisibility(View.INVISIBLE);

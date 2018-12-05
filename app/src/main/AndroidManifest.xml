@@ -23,6 +23,8 @@
         <activity android:name=".Movies.MovieActivity"></activity>
         <activity android:name=".NewsActivity"></activity>
         <activity android:name=".Food.FoodFavorites"></activity>
+        <activity android:name=".Food.SearchTag"></activity>
+
     </application>
 
 </manifest>
