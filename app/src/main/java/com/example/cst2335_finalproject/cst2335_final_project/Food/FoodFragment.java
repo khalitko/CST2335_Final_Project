@@ -25,6 +25,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.example.cst2335_finalproject.cst2335_final_project.MainScreen;
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 
@@ -63,6 +64,7 @@ public class FoodFragment extends Fragment {
 //        if (this.getActivity().getActionBar() != null) this.getActivity().getActionBar().setDisplayShowTitleEnabled(false);
 //        setHasOptionsMenu(false); //needed to make option menus to appear
 
+        Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.favorites, Snackbar.LENGTH_SHORT).show();
 
 
         foods = db.rawQuery("select * from " + FoodDatabaseHelper.TABLE_NAME, null);
@@ -138,6 +140,10 @@ public class FoodFragment extends Fragment {
         if (id == R.id.action_favorite) {
             Snackbar.make(getActivity().findViewById(android.R.id.content),R.string.favoritesList, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+            return true;
+        } else if (id == R.id.action_home) {
+            Intent intent = new Intent(getActivity(), MainScreen.class);
+            startActivity(intent);
             return true;
         } else if (id == R.id.action_tag) {
             Intent intent = new Intent(getActivity(), SearchTag.class);

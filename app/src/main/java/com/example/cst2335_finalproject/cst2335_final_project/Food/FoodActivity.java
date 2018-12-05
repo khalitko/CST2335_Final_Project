@@ -28,6 +28,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cst2335_finalproject.cst2335_final_project.MainScreen;
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 import org.json.JSONArray;
@@ -187,6 +188,10 @@ public class FoodActivity extends AppCompatActivity {
 
         if (id == R.id.action_favorite) {
             Intent intent = new Intent(FoodActivity.this, FoodFavorites.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_home) {
+            Intent intent = new Intent(this, MainScreen.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.action_tag) {

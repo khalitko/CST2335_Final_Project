@@ -3,6 +3,7 @@ package com.example.cst2335_finalproject.cst2335_final_project;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.example.cst2335_finalproject.cst2335_final_project.Food.FoodActivity;
@@ -14,6 +15,7 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        Snackbar.make(findViewById(android.R.id.content), R.string.Home, Snackbar.LENGTH_SHORT).show();
     }
 
         public void foodClick (View view){
