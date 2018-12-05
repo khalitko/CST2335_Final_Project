@@ -27,6 +27,7 @@ import android.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.example.cst2335_finalproject.cst2335_final_project.MainScreen;
 import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 
@@ -93,7 +94,7 @@ public class SearchTag extends AppCompatActivity {
         details4 = findViewById(R.id.details4);
         tagList = findViewById(R.id.tagList);
         foodList = findViewById(R.id.foodList);
-
+        Snackbar.make(findViewById(android.R.id.content), R.string.SearchTag, Snackbar.LENGTH_SHORT).show();
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar); //set up toolbar
         setSupportActionBar(toolbar);
         if (getActionBar() != null) getActionBar().setDisplayShowTitleEnabled(true);
@@ -233,12 +234,22 @@ public class SearchTag extends AppCompatActivity {
         if (id == R.id.action_favorite) {
             Intent intent = new Intent(SearchTag.this, FoodFavorites.class);
             startActivity(intent);
+            Snackbar.make(this.findViewById(android.R.id.content),R.string.favorites, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return true;
+        } else if (id == R.id.action_home) {
+            Intent intent = new Intent(this, MainScreen.class);
+            startActivity(intent);
+            Snackbar.make(this.findViewById(android.R.id.content),R.string.foodSearch, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
             return true;
         } else if (id == R.id.action_tag) {
             Intent intent = new Intent(this, SearchTag.class);
             startActivity(intent);
             return true;
         } else if (id == R.id.search) {
+            Intent intent = new Intent(this, FoodActivity.class);
+            startActivity(intent);
             Snackbar.make(this.findViewById(android.R.id.content),R.string.foodSearch, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             return true;

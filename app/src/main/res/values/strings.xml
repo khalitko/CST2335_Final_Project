@@ -20,7 +20,10 @@
     <string name="versionNum">Version: 2.0</string>
     <string name="foodSearch">Food Search</string>
     <string name="favoritesList">Favorites List</string>
+    <string name="favorites">Favorites</string>
     <string name="jsonDL">Json Data is downloading</string>
+    <string name="Home">Home</string>
+    <string name="SearchTag">Search Tag</string>
 
     <!-- News Section Strings [Umber Setia] -->
     <string name="news_reader">CBC News Reader</string>
