@@ -108,7 +108,6 @@ public class MovieFragmentFavourite extends Fragment {
         statisticsBtn.setOnClickListener((v -> {
             int shortestRun = 14401 //the longest movie ever is 14'400 min.
                     , longestRun = 0, averageRun = 0;
-            //int sixitiesMinus, seventies, eighties, nineties, twoThousands, twentytens;
             String runtimeStringActive;
             int runtimeIntActive;
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
