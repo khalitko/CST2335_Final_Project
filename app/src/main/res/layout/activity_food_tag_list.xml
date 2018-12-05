@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Food.SearchTag">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/MyToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="2dp"
+        android:background="#7CC242"
+        app:subtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle"
+        app:title="EDAMAM"
+        app:titleTextAppearance="@style/ToolbarTextAppearance.Title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:id="@+id/title"
+        android:text="Tag List:"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/toolbar"/>
+    <ListView
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="200sp"
+        android:id="@+id/tagList"
+        android:layout_below="@id/title">
+    </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Food Items:"
+        android:layout_alignParentStart="true"
+        android:id="@+id/foodTitle"
+        android:layout_below="@id/tagList"/>
+    <ListView
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodList"
+        android:layout_below="@id/foodTitle"
+        android:layout_above="@id/details"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details"
+        android:layout_above="@id/details2"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details2"
+        android:layout_above="@id/details3"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/details3"
+        android:layout_above="@id/details4"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:id="@+id/details4"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
