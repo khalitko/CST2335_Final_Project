@@ -38,4 +38,33 @@
     <string name="min_words">Nombre mimimum de mots:</string>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <!-- Movie Section Strings [Dylan McCarthy] -->
+    <string name="movieFavouriteText">"<u>Vos films préférés:</u>"</string>
+    <string name="queryMovieButton">Chercher un film!</string>
+    <string name="movieTextEntryHint">Entrez le Titre du Film Ici!</string>
+    <string name="mainMovieFavButton">Favoris!</string>
+    <string name="iconFavourites">"Films Préférés"</string>
+    <string name="iconHome">Accueil</string>
+    <string name="iconHelp">Aide/Info</string>
+    <string name="BtnOkay">"d'Accord"</string>
+    <string name="aboutDialogTitle">"A propos de l'Application"</string>
+    <string name="aboutMessageString">"Auteur: Dylan McCarthy \n\nRecherchez un film en tapant son titre dans la barre de recherche en haut de l'écran. \n\nLa sélection d'un film dans la liste des favoris vous donnera plus de détails sur le film. \n\nVersion 1.2"</string>
+    <string name="movieDisplayTitle">Titre: \n</string>
+    <string name="movieDisplayRelease">\nSortie le: \n</string>
+    <string name="movieDisplayRating">\nÉvaluation: \n</string>
+    <string name="movieDisplayRuntime">\nDurée: \n</string>
+    <string name="movieDisplayPlot">\nLa Description: \n</string>
+    <string name="movieDisplayStarring">\nEn Vedette: \n</string>
+    <string name="movieDoneBTN">Terminé</string>
+    <string name="BtnView">Voir le Film</string>
+    <string name="BtnDelete">Effacer le FIlm</string>
+    <string name="BtnCancel">Annuler</string>
+    <string name="addedMovieToDB">" a été ajouté à vos Favoris!!"</string>
+    <string name="alreadyAddedMovieToDB">" est déjà dans vos Favoris!</string>
+    <string name="movieStatsBtn">Statistiques</string>
+    <string name="statsDisplay1"><u>"Durée plus court: "</u></string>
+    <string name="statsDisplay2"><u>"\n\nDurée plus Longue: "</u></string>
+    <string name="statsDisplay3"><u>"\n\nMoyenne Durée : "</u></string>
+    <string name="movieErrorQuery">Erreur: aucun film trouvé avec ce titre!</string>
 </resources>
