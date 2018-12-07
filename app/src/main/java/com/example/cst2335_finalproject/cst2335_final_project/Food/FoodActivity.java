@@ -53,14 +53,15 @@ public class FoodActivity extends AppCompatActivity {
     ListView list;
     ProgressBar progress;
     Toolbar favorite;
-    String search, label, calorieValue, fatValue, carbValue;
+    double calorieValue;
+    String search, label, fatValue, carbValue;
     String[] tagValue;
     FoodDatabaseHelper dbHelper;
     SQLiteDatabase db;
     String str;
     ArrayList<String[]> foods = new ArrayList<>();
     ArrayList<HashMap<String, String>> foodItemList;
-
+    TextView bf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,28 +109,34 @@ public class FoodActivity extends AppCompatActivity {
                         switch (which) {
 
                             case 0:
-                                TextView bf = (TextView) findViewById(R.id.tagV);
+                                bf = (TextView) findViewById(R.id.tagV);
                                 str = bf.getText().toString();
-                                str = str.replace("","Breakfast");
-                                bf.setText(str);
+                                str = str.replace(tagValue[0], "");
+                                str = str.replace(tagValue[1], "");
+                                str = str.replace(tagValue[2], "");
+                                str = str.replace("", tagValue[0]);
+//                                bf.setText(str);
                                 break;
                             case 1:
-
-                                TextView l = (TextView) findViewById(R.id.tagV);
-                                str = l.getText().toString();
-                                str = str.replace("","Lunch");
-                                l.setText(str);
+                                bf = (TextView) findViewById(R.id.tagV);
+                                str = bf.getText().toString();
+                                str = str.replace(tagValue[0], "");
+                                str = str.replace(tagValue[1], "");
+                                str = str.replace(tagValue[2], "");
+                                str = str.replace("", tagValue[1]);
                                 break;
                             case 2:
-                                TextView d = (TextView) findViewById(R.id.tagV);
-                                str = d.getText().toString();
-                                str = str.replace("","Dinner");
-                                d.setText(str);
+                                bf = (TextView) findViewById(R.id.tagV);
+                                str = bf.getText().toString();
+                                str = str.replace(tagValue[0], "");
+                                str = str.replace(tagValue[1], "");
+                                str = str.replace(tagValue[2], "");
+                                str = str.replace("", tagValue[2]);
                                 break;
-
                             default:
                                 break;
                         }
+                        bf.setText(str);
                     }
                 });
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -150,7 +157,7 @@ public class FoodActivity extends AppCompatActivity {
 
                                 ContentValues cValues = new ContentValues();
                                 cValues.put(FoodDatabaseHelper.KEY_LABEL,strArr[0]);
-                                cValues.put(FoodDatabaseHelper.KEY_CALORIES,strArr[1]);
+                                cValues.put(FoodDatabaseHelper.KEY_CALORIES,calorieValue);
                                 cValues.put(FoodDatabaseHelper.KEY_FAT,strArr[2]);
                                 cValues.put(FoodDatabaseHelper.KEY_CARBS,strArr[3]);
                                 cValues.put(FoodDatabaseHelper.KEY_TAG, str);
@@ -266,7 +273,7 @@ public class FoodActivity extends AppCompatActivity {
                         JSONObject nutriObject = foodObject.getJSONObject("nutrients");
                         Log.i(ACTIVITY_NAME, nutriObject.toString());
                         publishProgress(60);
-                        String calorieValue = nutriObject.getString("ENERC_KCAL");
+                        calorieValue = nutriObject.getDouble("ENERC_KCAL");
                         publishProgress(80);
                         String  fatValue = nutriObject.getString("FAT");
                         publishProgress(90);
@@ -275,7 +282,7 @@ public class FoodActivity extends AppCompatActivity {
 
                         HashMap<String, String> food = new HashMap<>();
                         food.put("Label", label);
-                        food.put("Calories", "Calories: "+ calorieValue );
+                        food.put("Calories", "Calories: " + calorieValue );
                         food.put("Fat", "Fat: " + fatValue + "g");
                         food.put("Carbs", "Carb: " + carbValue+ "g");
 
@@ -310,7 +317,7 @@ public class FoodActivity extends AppCompatActivity {
                 toast.show();
             }else{
                 ListAdapter adapter = new SimpleAdapter(FoodActivity.this, foodItemList,
-                        R.layout.food_info, new String[]{ "Label","Calories", "Fat", "Carbs", "Tag"},
+                        R.layout.food_info, new String[]{ "Label", "Calories", "Fat", "Carbs", "Tag"},
                         new int[]{R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV, R.id.tagV});
                 list.setAdapter(adapter);
             }

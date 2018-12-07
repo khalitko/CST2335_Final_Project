@@ -14,7 +14,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final String ACTIVITY_NAME = "FoodDatabaseHelper";
     static String DATABASE_NAME = "Favorites.db";
-    static int VERSION_NUM = 7;
+    static int VERSION_NUM = 1;
     final static String KEY_ID = "_id";
     final static String KEY_LABEL = "Label";
     final static String KEY_CALORIES = "Calories";

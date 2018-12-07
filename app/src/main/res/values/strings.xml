@@ -24,6 +24,8 @@
     <string name="jsonDL">Json Data is downloading</string>
     <string name="Home">Home</string>
     <string name="SearchTag">Search Tag</string>
+    <string name="Settings">Settings</string>
+
 
     <!-- News Section Strings [Umber Setia] -->
     <string name="news_reader">CBC News Reader</string>
