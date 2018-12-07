@@ -26,6 +26,8 @@ import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.example.cst2335_finalproject.cst2335_final_project.MainScreen;
 import com.example.cst2335_finalproject.cst2335_final_project.R;
@@ -33,65 +35,33 @@ import com.example.cst2335_finalproject.cst2335_final_project.R;
 
 
 public class SearchTag extends AppCompatActivity {
-    /**
-     * Variable for holding data for list view
-     */
-    ArrayList<String> log = new ArrayList<>();
-    /**
-     * Variable for holding data for food list view
-     */
-    ArrayList<String> foodLog = new ArrayList<>();
-    /**
-     * Listview variables for displaying tag list and food list
-     */
+
+    ArrayList<String> TagList = new ArrayList<>();
+
+    ArrayList<String> FoodItemList = new ArrayList<>();
+
     ListView tagList;
     ListView foodList;
-    /**
-     * List view adapter variable
-     */
-    Adapter adapter;
-    /**
-     * Food list view adapter variable
-     */
-    FoodAdapter foodAdapter;
-    /**
-     * Database helper object variable
-     */
+
+    CalorieStatistics calStat;
+
+    FoodItems fooditems;
+
     FoodDatabaseHelper dbHelp;
-    /**
-     * Cursor object  variable for loading and deleting data
-     */
-    Cursor cursor;
-    /**
-     * Database object variable
-     */
+
+    Cursor foodquery;
+
     SQLiteDatabase db;
-    /**
-     * Class variables for view items
-     */
-    TextView details;
-    TextView details2;
-    TextView details3;
-    TextView details4;
 
-    /**
-     * On create method that contains most of class functionality
-     * @param savedInstanceState
-     */
-
-    ArrayList<HashMap<String, String>> tagItemList;
-
+    TextView calorieCal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tagItemList = new ArrayList<>();
+
         setContentView(R.layout.activity_food_tag_list);
         // setup view objects
-        details = findViewById(R.id.details);
-        details2 = findViewById(R.id.details2);
-        details3 = findViewById(R.id.details3);
-        details4 = findViewById(R.id.details4);
+        calorieCal = findViewById(R.id.calorieCal);
         tagList = findViewById(R.id.tagList);
         foodList = findViewById(R.id.foodList);
         Snackbar.make(findViewById(android.R.id.content), R.string.SearchTag, Snackbar.LENGTH_SHORT).show();
@@ -102,130 +72,84 @@ public class SearchTag extends AppCompatActivity {
 
         dbHelp = new FoodDatabaseHelper(this);
         db = dbHelp.getWritableDatabase();
-        cursor = db.query(true, FoodDatabaseHelper.TABLE_NAME, new String[]{FoodDatabaseHelper.KEY_TAG}, "Tag not null", null, null, null, null, null);
-        cursor.moveToFirst();
+        foodquery = db.query(true, FoodDatabaseHelper.TABLE_NAME, new String[]{FoodDatabaseHelper.KEY_TAG}, "Tag not null", null, null, null, null, null);
+        foodquery.moveToFirst();
         //fills up tag list view
-        for (int i = 0; i < cursor.getCount(); i++) {
-            String t = cursor.getString(cursor.getColumnIndex(FoodDatabaseHelper.KEY_TAG));
-            log.add(t);
-            cursor.moveToNext();
+        for (int i = 0; i < foodquery.getCount(); i++) {
+            String t = foodquery.getString(foodquery.getColumnIndex(FoodDatabaseHelper.KEY_TAG));
+            TagList.add(t);
+            foodquery.moveToNext();
         }
-        adapter = new Adapter();
-        tagList.setAdapter(adapter);
+        calStat = new CalorieStatistics();
+        tagList.setAdapter(calStat);
 
-//        foods = db.rawQuery("select * from " + FoodDatabaseHelper.TABLE_NAME, null);
-//        ListView favList= (ListView)view.findViewById(R.id.favList);
-//
-//
-//        String[] columns = new String[] { FoodDatabaseHelper.KEY_LABEL, FoodDatabaseHelper.KEY_CALORIES, FoodDatabaseHelper.KEY_FAT, FoodDatabaseHelper.KEY_CARBS, FoodDatabaseHelper.KEY_TAG };
-//        // THE XML DEFINED VIEWS WHICH THE DATA WILL BE BOUND TO
-//        int[] to = new int[] { R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV, R.id.tagV };
-//        favList.setAdapter(new SimpleCursorAdapter(getActivity(), R.layout.food_info, foods, columns, to));
-        //when item is clicked it displays the details of the tag
         tagList.setOnItemClickListener((parent, view, position, id) -> {
-            String tag = adapter.getItem(position);
+            String tag = calStat.getItem(position);
             getFoodList(tag);
-            details.setText("Total Calories "+ Double.toString(totalCal(tag))+"kcal");
-            details2.setText("Average Calories "+ Double.toString(avgCal(tag))+"kcal");
-            details3.setText("Minimum Calories "+ Double.toString(minCal(tag))+"kcal");
-            details4.setText("Maximum Calories "+ Double.toString(maxCal(tag))+"kcal");
+            calorieCal.setText("Total Calories "+ Double.toString(totalCal(tag))
+                    + "\n" + "Average Calories "+ Double.toString(avgCal(tag))
+                    + "\n" + "Minimum Calories "+ Double.toString(minCal(tag))
+                    + "\n" + "Maximum Calories "+ Double.toString(maxCal(tag)));
         });
     }
 
-    /**
-     * Gets the list of foods with the same tag when a tag is selected
-     * @param tag
-     */
+
     public void getFoodList(String tag){
-        foodLog.clear();
-        cursor = db.query(false, FoodDatabaseHelper.TABLE_NAME, new String[]{FoodDatabaseHelper.KEY_LABEL}, "Tag like ?", new String[]{tag}, null, null, null, null);
-        cursor.moveToFirst();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            String t = cursor.getString(cursor.getColumnIndex(FoodDatabaseHelper.KEY_LABEL));
-            foodLog.add(t);
-            cursor.moveToNext();
+        FoodItemList.clear();
+        foodquery = db.query(false, FoodDatabaseHelper.TABLE_NAME, new String[]{FoodDatabaseHelper.KEY_LABEL}, "Tag like ?", new String[]{tag}, null, null, null, null);
+        foodquery.moveToFirst();
+        for (int i = 0; i < foodquery.getCount(); i++) {
+            String t = foodquery.getString(foodquery.getColumnIndex(FoodDatabaseHelper.KEY_LABEL));
+            FoodItemList.add(t);
+            foodquery.moveToNext();
         }
 
-//        ListAdapter adapter = new SimpleAdapter(SearchTag.this, tagItemList,
-//                R.layout.food_info, new String[]{ "Label","Calories", "Fat", "Carbs", "Tag"},
-//                new int[]{R.id.foodLabel, R.id.caloriesV, R.id.fatV, R.id.carbsV, R.id.tagV});
-//        foodList.setAdapter(adapter);
-
-        foodAdapter = new FoodAdapter();
-        foodList.setAdapter(foodAdapter);
+        fooditems = new FoodItems();
+        foodList.setAdapter(fooditems);
     }
-    /**
-     * Calculates total calories
-     * @param tag
-     * @return total
-     */
+
     public double totalCal(String tag){
-        cursor =db.rawQuery("SELECT SUM("+FoodDatabaseHelper.KEY_CALORIES+") as TotalCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
-        cursor.moveToFirst();
-        double totalCal = cursor.getDouble(cursor.getColumnIndex("TotalCal"));
+        foodquery =db.rawQuery("SELECT SUM("+FoodDatabaseHelper.KEY_CALORIES+") as TotalCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
+        foodquery.moveToFirst();
+        double totalCal = foodquery.getDouble(foodquery.getColumnIndex("TotalCal"));
         return totalCal;
 
     }
 
-    /**
-     * Calculates average calories
-     * @param tag
-     * @return average
-     */
     public double avgCal(String tag){
-        cursor =db.rawQuery("SELECT AVG("+FoodDatabaseHelper.KEY_CALORIES+") as AvgCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
-        cursor.moveToFirst();
-        double avgCal = cursor.getDouble(cursor.getColumnIndex("AvgCal"));
+        foodquery =db.rawQuery("SELECT AVG("+FoodDatabaseHelper.KEY_CALORIES+") as AvgCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
+        foodquery.moveToFirst();
+        double avgCal = foodquery.getDouble(foodquery.getColumnIndex("AvgCal"));
         return avgCal;
     }
 
-    /**
-     * Calculates minimum calories
-     * @param tag
-     * @return min
-     */
     public double minCal(String tag){
-        cursor =db.rawQuery("SELECT MIN("+FoodDatabaseHelper.KEY_CALORIES+") as MinCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
-        cursor.moveToFirst();
-        double minCal = cursor.getDouble(cursor.getColumnIndex("MinCal"));
+        foodquery =db.rawQuery("SELECT MIN("+FoodDatabaseHelper.KEY_CALORIES+") as MinCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
+        foodquery.moveToFirst();
+        double minCal = foodquery.getDouble(foodquery.getColumnIndex("MinCal"));
         return minCal;
     }
 
-    /**
-     * Calculates maximum calories
-     * @param tag
-     * @return max
-     */
+
     public double maxCal(String tag){
-        cursor =db.rawQuery("SELECT MAX("+FoodDatabaseHelper.KEY_CALORIES+") as MaxCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
-        cursor.moveToFirst();
-        double maxCal = cursor.getDouble(cursor.getColumnIndex("MaxCal"));
+        foodquery =db.rawQuery("SELECT MAX("+FoodDatabaseHelper.KEY_CALORIES+") as MaxCal FROM "+FoodDatabaseHelper.TABLE_NAME+" WHERE " + FoodDatabaseHelper.KEY_TAG +" LIKE " +"'"+tag+"'",null);
+        foodquery.moveToFirst();
+        double maxCal = foodquery.getDouble(foodquery.getColumnIndex("MaxCal"));
         return maxCal;
     }
-    /**
-     * Sets up option menu in toolbar
-     * @param menu
-     * @return boolean
-     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-    /**
-     * On destroy method
-     */
     @Override
     protected void onDestroy(){
         dbHelp.close();
         super.onDestroy();
     }
-    /**
-     * Sets up option menu for tool bar
-     * @param item
-     * @return
-     */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -270,44 +194,23 @@ public class SearchTag extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /**
-     * Inner class for list view adapter
-     */
-    private class Adapter extends BaseAdapter {
-        /**
-         * Gets count
-         * @return count
-         */
+
+    private class CalorieStatistics extends BaseAdapter {
+
         @Override
         public int getCount(){
-            return  log.size();
+            return  TagList.size();
         }
 
-        /**
-         * Returns the object at position
-         * @param pos
-         * @return String[]
-         */
         @Override
         public String getItem(int pos){
-            return  log.get(pos);
+            return  TagList.get(pos);
         }
 
-        /**
-         * Get item id at position
-         * @param pos
-         * @return pos
-         */
         public long getItemId(int pos){
             return pos;
         }
-        /**
-         * Inflates the list view
-         * @param pos
-         * @param convertView
-         * @param parent
-         * @return view
-         */
+
         @Override
         public View getView(int pos, View convertView, ViewGroup parent) {
             LayoutInflater inflater = SearchTag.this.getLayoutInflater();
@@ -323,44 +226,25 @@ public class SearchTag extends AppCompatActivity {
         }
 
     }
-    /**
-     * Inner class for food list view adapter
-     */
-    private class FoodAdapter extends BaseAdapter {
-        /**
-         * Gets count
-         * @return count
-         */
+
+    private class FoodItems extends BaseAdapter {
+
         @Override
         public int getCount(){
-            return  foodLog.size();
+            return  FoodItemList.size();
         }
 
-        /**
-         * Returns the object at position
-         * @param pos
-         * @return String[]
-         */
+
         @Override
         public String getItem(int pos){
-            return  foodLog.get(pos);
+            return  FoodItemList.get(pos);
         }
 
-        /**
-         * Get item id at position
-         * @param pos
-         * @return pos
-         */
+
         public long getItemId(int pos){
             return pos;
         }
-        /**
-         * Inflates the list view
-         * @param pos
-         * @param convertView
-         * @param parent
-         * @return view
-         */
+
         @Override
         public View getView(int pos, View convertView, ViewGroup parent) {
             LayoutInflater inflater = SearchTag.this.getLayoutInflater();
